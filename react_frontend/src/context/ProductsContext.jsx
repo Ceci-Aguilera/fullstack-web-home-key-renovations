@@ -69,8 +69,6 @@ export const ProductsProvider = ({ children }) => {
 
   const product_url = `/digital-warehouse/product/${id}/`
 
-  console.log(body);
-
 
   await axios.put(product_url, body, config).then(async(res) => {
     const products_res = await getProducts();
@@ -106,10 +104,35 @@ await axios.post(product_url, body, config).then(async(res) => {
 navigate("/", {replace: true})
 }
 
+
+
+const deleteProduct = async (product_id) => {
+  // const token = window.localStorage.getItem("token")
+
+  const config = {
+  headers: {
+    "Content-Type": "application/json",
+    // "Authorization": `Token ${token}`
+  }
+  }
+
+  const product_url = `/digital-warehouse/product/${product_id}/`
+
+
+  await axios.delete(product_url, config).then(async(res) => {
+  const products_res = await getProducts();
+  setProduct(products_res.products);
+  }).catch((error) => {
+  console.log(error)
+  } )
+
+  navigate("/", {replace: true})
+}
+
   
 
   return (
-    <ProductsContext.Provider value={{ products, editProduct, addProduct }}>
+    <ProductsContext.Provider value={{ products, editProduct, addProduct, deleteProduct }}>
       {children}
     </ProductsContext.Provider>
   );

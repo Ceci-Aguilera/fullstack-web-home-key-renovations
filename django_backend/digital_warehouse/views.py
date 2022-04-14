@@ -37,3 +37,12 @@ class ProductDetailView(RetrieveUpdateDestroyAPIView):
     serializer_class = ProductSerializer
     lookup_url_kwarg = 'product_id'
     queryset = Product.objects.all()
+
+
+
+#  This is the Category Detail View for simple CRUD operations
+class CategoryDetailView(RetrieveUpdateDestroyAPIView):
+    authentication_classes = []
+    serializer_class = CategorySerializer
+    lookup_url_kwarg = 'category_id'
+    queryset = Category.objects.all()

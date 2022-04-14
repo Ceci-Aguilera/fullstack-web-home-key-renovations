@@ -17,7 +17,7 @@ import ProductDetailForm from "../../components/ProductDetailForm";
 const ProductDetails = () => {
 const {id} = useParams();
 
-const { editProduct } = useContextProducts()
+const { editProduct, deleteProduct } = useContextProducts()
 
 const [product, setProduct] = useState(null)
 
@@ -45,7 +45,7 @@ useEffect(() => {
 
   return (product == null)? <div></div>:(
     <>
-      <ProductDetailForm product={product} categories={categories} onEdit={editProduct}/>
+      <ProductDetailForm product={product} categories={categories} onEdit={editProduct} onDelete={deleteProduct}/>
     </>
   );
 };

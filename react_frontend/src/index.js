@@ -23,6 +23,9 @@ import { MenuProvider } from "./context/MenuContext"
 import { ProductsProvider } from "./context/ProductsContext"
 import ProductDetails from './pages/product/[id]';
 import CreateProduct from './pages/create-product';
+import Categories from './pages/categories';
+import CategoryDetails from './pages/category/[id]';
+import CreateCategory from './pages/create-category';
 
 
 
@@ -36,6 +39,9 @@ render(
             <Route exact path="/" element={<Landing />} />
             <Route exact path="/products/:id" element={<ProductDetails />} />
             <Route exact path="/create-product" element={<CreateProduct />} />
+            <Route exact path="/categories" element={<Categories />} />
+            <Route exact path="/category/:id" element={<CategoryDetails />} />
+            <Route exact path="/create-category" element={<CreateCategory />} />
           </Routes>
         </Layout>
       </MenuProvider>

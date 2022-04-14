@@ -42,7 +42,7 @@ function CustomNavbar() {
           <Nav className="ms-auto navbar-nav">
 
             <Nav.Link
-              exact to="#"
+              exact to="/categories"
               as={NavLink}
               className="navbar-link"
             >

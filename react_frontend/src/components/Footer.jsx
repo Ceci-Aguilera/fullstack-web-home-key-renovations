@@ -28,7 +28,7 @@ const {current_link, setCurrentLinkHelper} = useContextMenu();
         <Row className="footer-nav-row">
           <div className="footer-nav">
 
-            <Link exact to="/#"
+            <Link exact to="/categories"
               as={NavLink} className="footer-link">
               <span onClick={()=>setCurrentLinkHelper("Categories")} className={current_link=="Categories"?"secondary-color-span":""}>Categories</span>
             </Link>

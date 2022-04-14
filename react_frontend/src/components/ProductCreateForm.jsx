@@ -13,7 +13,7 @@ import { useNavigate } from 'react-router';
 
 
 
-function ProductDetailForm({categories, onAdd }) {
+function ProductAddForm({categories, onAdd }) {
 
     const navigate = useNavigate();
 
@@ -130,4 +130,4 @@ function ProductDetailForm({categories, onAdd }) {
     );
 }
 
-export default ProductDetailForm;
+export default ProductAddForm;

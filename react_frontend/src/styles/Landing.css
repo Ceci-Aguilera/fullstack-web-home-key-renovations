@@ -16,6 +16,7 @@
     border: 1px solid #aeabab;
     border-radius: 10px;
     overflow-y: scroll !important;
+    box-shadow: 0px 1px 10px #999;
 }
 
 .landing-categories-list-div{
@@ -69,7 +70,8 @@
 
 .landing-categories-list-element-selected{
     background-color:#444438;
-    color:white !important
+    color:white !important;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
 .landing-products-div{
@@ -81,6 +83,11 @@
 
 .landing-products-search{
     height: 50px;
+    box-shadow: 0px 1px 10px #999;
+}
+
+.landing-products-search-button{
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 
 .landing-products-list-div{
@@ -145,13 +152,14 @@
 .landing-products-add-button{
     width: 300px;
     height: 50px;
-    background-color: #232323;
+    background-color: #444438;
     margin-left: auto!important;
     margin-right: 10px !important;
     text-align:center;
     align-items: baseline;
     line-height: 35px;
     font-size: 1.2rem !important;
+    box-shadow: 0px 1px 10px #999;
 }
 
 .landing-products-add-button:hover,
@@ -159,5 +167,5 @@
 .landing-products-add-button:after,
 .landing-products-add-button:focus{
     background-color: #f2c17d;
-    color:#232323 !important;
+    color:#444438 !important;
 }

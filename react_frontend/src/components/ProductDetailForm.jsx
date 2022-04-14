@@ -13,7 +13,7 @@ import { useNavigate } from 'react-router';
 
 
 
-function ProductDetailForm({ product, categories, onEdit }) {
+function ProductDetailForm({ product, categories, onEdit, onDelete }) {
 
     const navigate = useNavigate();
 
@@ -34,17 +34,21 @@ function ProductDetailForm({ product, categories, onEdit }) {
     }, [product])
 
 
-    const onCancelClicked = async(e) => {
+    const onCancelClicked = async (e) => {
         e.preventDefault();
-        navigate("/", {replace: true})
+        navigate("/", { replace: true })
     }
-    
+
+    const onDeleteClicked = async (e) => {
+        e.preventDefault();
+        await onDelete(product.id);
+    }
+
 
 
     const onSubmit = async (e) => {
         e.preventDefault();
 
-        console.log(product_category)
 
         const body = JSON.stringify({
             id: product.id,
@@ -124,7 +128,12 @@ function ProductDetailForm({ product, categories, onEdit }) {
 
 
                         <div className="product-detail-form-card-body-form-button-div">
-                        <Button variant="secondary" className="product-detail-form-card-body-form-button" onClick={(e) => onCancelClicked(e)}>
+
+                            <Button variant="danger" className="product-detail-form-card-body-form-button" onClick={(e) => onDeleteClicked(e)}>
+                                Delete
+                            </Button>
+
+                            <Button variant="secondary" className="product-detail-form-card-body-form-button" onClick={(e) => onCancelClicked(e)}>
                                 Cancel
                             </Button>
 

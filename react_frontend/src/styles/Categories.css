@@ -1,0 +1,81 @@
+.categories-div{
+    height: 100%;
+    min-height: 100vh;
+}
+
+.categories-title{
+    margin-top: 50px;
+    font-weight:bold;
+    text-align: center;
+}
+
+.categories-list{
+    width: 90%;
+    max-width: 1000px;
+    margin-top: 25px;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+.categories-list-element{
+    width: 600px;
+    height: 50px;
+    border-radius: 10px;
+    margin-top: 25px;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    display:flex;
+    flex-direction: row;
+}
+
+.categories-list-element-div{
+    width: 500px;
+    height: 50px;
+    border: 2px solid #f2c17d;
+    border-radius: 10px;
+}
+
+.categories-list-element-p{
+    height: 50px;
+    padding-left: 10px;
+    font-weight: bold;
+    line-height: 50px;
+}
+
+.categories-list-element-button{
+    height: 50px;
+    width: 100px;
+    background-color: #444438 !important;
+    align-items:baseline;
+    line-height: 35px;
+}
+
+.categories-add-div{
+    width: 90%;
+    max-width: 600px;
+    margin-top: 50px;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    text-align: end;
+}
+
+.categories-add-button{
+    width: 250px;
+    height: 50px;
+    background-color: #444438;
+    margin-left: auto!important;
+    margin-right: auto !important;
+    text-align:center;
+    align-items: baseline;
+    line-height: 35px;
+    font-size: 1.2rem !important;
+    box-shadow: 0px 1px 10px #999;
+}
+
+.categories-add-button:hover,
+.categories-add-button:active,
+.categories-add-button:after,
+.categories-add-button:focus{
+    background-color: #f2c17d;
+    color:#444438 !important;
+}

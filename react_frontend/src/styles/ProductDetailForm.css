@@ -9,14 +9,18 @@
     max-width:600px;
     border: 2px solid;
     border-color: #f2c17d;
+    border-radius: 20px !important;
     margin-top: 100px;
     margin-left: auto;
     margin-right: auto;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 
 .product-detail-form-card-header{
     background-color: white;
+    border-bottom: 2px solid;
     border-color: #f2c17d;
+    border-radius: 20px !important;
     font-size: 1.5rem;
     font-weight: bold;
     text-align: center;

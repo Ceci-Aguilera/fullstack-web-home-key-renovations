@@ -21,6 +21,8 @@ import Landing from "./pages/index"
 
 import { MenuProvider } from "./context/MenuContext"
 import { ProductsProvider } from "./context/ProductsContext"
+import ProductDetails from './pages/product/[id]';
+import CreateProduct from './pages/create-product';
 
 
 
@@ -32,6 +34,8 @@ render(
         <Layout>
           <Routes>
             <Route exact path="/" element={<Landing />} />
+            <Route exact path="/products/:id" element={<ProductDetails />} />
+            <Route exact path="/create-product" element={<CreateProduct />} />
           </Routes>
         </Layout>
       </MenuProvider>

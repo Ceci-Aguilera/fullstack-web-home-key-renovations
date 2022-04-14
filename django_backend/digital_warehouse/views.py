@@ -13,8 +13,27 @@ from .serializers import *
 
 # Create your views here.
 
-class ProductsListView(ListAPIView):
+# This is the Product List View
+class ProductsListView(ListCreateAPIView):
     authentication_classes = []
     serializer_class = ProductSerializer
     model = Product
+    queryset = Product.objects.all()
+
+
+
+
+# This is the Category List View
+class CategoriesListView(ListCreateAPIView):
+    authentication_classes = []
+    serializer_class = CategorySerializer
+    model = Category
+    queryset = Category.objects.all()
+
+
+#  This is the Product Detail View for simple CRUD operations
+class ProductDetailView(RetrieveUpdateDestroyAPIView):
+    authentication_classes = []
+    serializer_class = ProductSerializer
+    lookup_url_kwarg = 'product_id'
     queryset = Product.objects.all()

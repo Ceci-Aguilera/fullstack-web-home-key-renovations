@@ -7,19 +7,44 @@ import { Button, Row, Col, Form, InputGroup } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import ListOfProducts from "../components/ListOfProfucts";
 
-import {useContextProducts} from "../context/ProductsContext";
+import { useContextProducts } from "../context/ProductsContext";
+
+import axios from "axios";
 
 export default function Landing() {
 
-  const {products} = useContextProducts()
+  const { products } = useContextProducts()
 
-  // useEffect(() => {
-  //   setProducts([{name:"Ventana de Madera ", description:"Ventana de Madera 20'' x 30''"}, {name:"Puerta de Madera", description:"Puerta de Madera 20'' x 30''"}])
-  // }, [])
+  const [categories, setCategories] = useState([]);
+  const [current_category, setCurrentCategory] = useState(-1)
+  const [productsToDisplay, setProductsToDisplay] = useState([])
+
+  useEffect(() => {
+    async function fetchCategories() {
+      const categories_temp = await getCategories();
+      setCategories(categories_temp.categories);
+    }
+
+    fetchCategories();
+  }, [])
 
 
-  console.log(products)
-  
+    useEffect(() => {
+      setProductsToDisplay(products);
+    }, [products])
+
+    const onChangeCategory = (e, cat_id) => {
+        e.preventDefault();
+        setCurrentCategory(cat_id);
+        setProductsToDisplay(products.filter((element) => {
+            if(cat_id === -1){
+                return element;
+              }
+              else if(element.category === cat_id){
+                return element;
+              }
+        }));
+    }
 
 
   return (
@@ -33,33 +58,52 @@ export default function Landing() {
             </h2>
 
             <div className="landing-categories-list-div">
-              <div className="landing-categories-list-element-div">
-                <p className="landing-categories-list-element-p">
-                  ALL
-                </p>
-              </div>
+              {(current_category == -1) ?
+                <div className="landing-categories-list-element-div landing-categories-list-element-selected">
+                  <p className="landing-categories-list-element-p">
+                    ALL
+                  </p>
 
-              <div className="landing-categories-list-element-div landing-categories-list-element-selected">
-                <p className="landing-categories-list-element-p">
-                  Category 1
-                </p>
-              </div>
+                  <p className="landing-categories-list-element-p">
+                   <span className="landing-categories-list-element-span">{productsToDisplay.length}</span> Products
+                  </p>
+                </div> :
+                <div className="landing-categories-list-element-div" onClick={(e) => onChangeCategory(e, -1)}>
+                  <p className="landing-categories-list-element-p">
+                    ALL
+                  </p>
+                </div>}
 
-              <div className="landing-categories-list-element-div">
-                <p className="landing-categories-list-element-p">
-                  Category 2
-                </p>
-              </div>
+            {(categories == null || categories.length === 0) ? <div></div> :
+              <>
+                {categories.map((cat, index) => {
+                  return (current_category == cat.id) ? <div className="landing-categories-list-element-div landing-categories-list-element-selected">
+                    <p className="landing-categories-list-element-p">
+                      {cat.title}
+                    </p>
+                    
+                    <p className="landing-categories-list-element-p">
+                    <span className="landing-categories-list-element-span">{productsToDisplay.length}</span> Products
+                  </p>
+                  </div> : <div className="landing-categories-list-element-div"  onClick={(e) => onChangeCategory(e, cat.id)}>
+                    <p className="landing-categories-list-element-p">
+                      {cat.title} 
+                    </p>
+                  </div>
+                })}
 
-
+              </>
+            }
             </div>
+
+
           </div>
 
         </Col>
 
         <Col xs={12} sm={12} md={12} lg={8}>
-         
-         <ListOfProducts products={products}/>
+
+          <ListOfProducts products={productsToDisplay} />
 
 
         </Col>
@@ -67,4 +111,31 @@ export default function Landing() {
 
     </div>
   );
+}
+
+const getCategories = async () => {
+  // const token = window.localStorage.getItem("token")
+
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      // "Authorization": `Token ${token}`
+    }
+  }
+
+  const categories_url = "/digital-warehouse/categories"
+
+
+  return axios.get(categories_url, config).then(async (res) => {
+    const result = await res.data;
+    return {
+      status: "CATEGORIES_FOUND", categories: result
+    }
+  }).catch((error) => {
+    return {
+      status: "CATEGORIES_NOT_FOUND", categories: []
+    }
+  })
+
+
 }

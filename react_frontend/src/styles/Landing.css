@@ -116,4 +116,48 @@
     width: 100px;
     background-color: #444438 !important;
     border-color: #444438 !important;
+    padding-top: 10px !important;
+}
+
+.landing-categories-list-element-div{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.landing-categories-list-element-span{
+    background-color: white !important;
+    color: #232323 !important;
+    border: 1px solid white !important;
+    border-radius: 20px !important;
+    padding-left: 5px !important;
+    padding-right: 5px !important;
+}
+
+.landing-products-add-div{
+    width: 100%;
+    margin-top: 20px;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    text-align: right;
+}
+
+.landing-products-add-button{
+    width: 300px;
+    height: 50px;
+    background-color: #232323;
+    margin-left: auto!important;
+    margin-right: 10px !important;
+    text-align:center;
+    align-items: baseline;
+    line-height: 35px;
+    font-size: 1.2rem !important;
+}
+
+.landing-products-add-button:hover,
+.landing-products-add-button:active,
+.landing-products-add-button:after,
+.landing-products-add-button:focus{
+    background-color: #f2c17d;
+    color:#232323 !important;
 }

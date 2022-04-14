@@ -1,0 +1,119 @@
+.landing-div{
+    height: 100% !important;
+    min-height: max-content!important;
+}
+
+.landing-row{
+    margin-top: 50px !important;
+    width: 100%;
+}
+
+.landing-categories-div{
+    width: 90%;
+    height: calc(100vh - 200px) !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    border: 1px solid #aeabab;
+    border-radius: 10px;
+    overflow-y: scroll !important;
+}
+
+.landing-categories-list-div{
+    max-height: 400px;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    height: 90% !important;
+  }
+  
+
+  ::-webkit-scrollbar-track {
+    height: 90% !important;
+    border: 1px solid transparent;
+    border-radius: 50px !important;
+  }
+  
+
+  ::-webkit-scrollbar-thumb {
+    background: #eac88388;
+    border: 1px solid #aeabab;
+    border-radius: 50px !important;
+  }
+
+
+.landing-categories-h2{
+    color: #232323 !important;
+    padding-top: 25px !important;
+    font-weight: bold;
+    text-align: center;
+}
+
+.landing-categories-list-div{
+    width: 100% !important;
+    height: 100% !important;
+    padding-left: 10px !important;
+}
+
+.landing-categories-list-element-div{
+    width: 100% !important;
+    height: 50px !important;
+    color:#232323!important;
+    padding-left: 20px !important;
+    border-radius: 8px;
+    font-weight: bold;
+    align-items: baseline !important;
+    line-height: 50px;
+    cursor:pointer;
+}
+
+.landing-categories-list-element-selected{
+    background-color:#444438;
+    color:white !important
+}
+
+.landing-products-div{
+    width: 90%;
+    height: calc(100vh - 200px) !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+.landing-products-search{
+    height: 50px;
+}
+
+.landing-products-list-div{
+    width: 100%;
+    height: calc(100vh - 300px) !important;
+    margin-top: 25px;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    overflow-y: scroll !important;
+}
+
+.landing-products-list-element-input-group{
+    width: 100% !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+.landing-products-list-element-div{
+    width: calc(100% - 100px);
+    height: 50px;
+    border: 1px solid #aeabab;
+    border-radius: 8px;
+    align-items: baseline !important;
+    line-height: 50px;
+}
+
+.landing-products-list-element-p{
+    padding-left: 10px;
+    font-weight: bold;
+}
+
+.landing-products-list-element-button{
+    width: 100px;
+    background-color: #444438 !important;
+    border-color: #444438 !important;
+}

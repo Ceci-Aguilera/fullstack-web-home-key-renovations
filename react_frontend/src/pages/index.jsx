@@ -7,14 +7,18 @@ import { Button, Row, Col, Form, InputGroup } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import ListOfProducts from "../components/ListOfProfucts";
 
+import {useContextProducts} from "../context/ProductsContext";
+
 export default function Landing() {
 
-  const [products, setProducts] = useState([]);
+  const {products} = useContextProducts()
 
-  useEffect(() => {
-    setProducts([{name:"Ventana de Madera ", description:"Ventana de Madera 20'' x 30''"}, {name:"Puerta de Madera", description:"Puerta de Madera 20'' x 30''"}])
-  }, [])
+  // useEffect(() => {
+  //   setProducts([{name:"Ventana de Madera ", description:"Ventana de Madera 20'' x 30''"}, {name:"Puerta de Madera", description:"Puerta de Madera 20'' x 30''"}])
+  // }, [])
 
+
+  console.log(products)
   
 
 

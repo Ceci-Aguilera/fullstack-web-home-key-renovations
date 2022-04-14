@@ -20,18 +20,22 @@ import Layout from "./components/Layout"
 import Landing from "./pages/index"
 
 import { MenuProvider } from "./context/MenuContext"
+import { ProductsProvider } from "./context/ProductsContext"
+
 
 
 const rootElement = document.getElementById("root");
 render(
   <Router>
-    <MenuProvider>
-      <Layout>
-        <Routes>
-          <Route exact path="/" element={<Landing />} />
-        </Routes>
-      </Layout>
-    </MenuProvider>
+    <ProductsProvider>
+      <MenuProvider>
+        <Layout>
+          <Routes>
+            <Route exact path="/" element={<Landing />} />
+          </Routes>
+        </Layout>
+      </MenuProvider>
+    </ProductsProvider>
   </Router>,
   rootElement
 );

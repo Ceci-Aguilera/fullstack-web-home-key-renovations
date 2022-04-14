@@ -31,3 +31,17 @@ class Product(models.Model):
         else:
             return str(self.id) + " - " + self.title + " - " + "No Category"
 
+
+
+
+class Client(models.Model):
+
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
+    email = models.EmailField( max_length=256, unique=True)
+    phone = models.CharField(max_length=50)
+    address = models.CharField(max_length=256)
+    amount_of_works = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.first_name + " " + self.last_name

@@ -31,6 +31,14 @@ class CategoriesListView(ListCreateAPIView):
     queryset = Category.objects.all()
 
 
+# This is the Client List View
+class ClientsListView(ListCreateAPIView):
+    authentication_classes = []
+    serializer_class = ClientSerializer
+    model = Client
+    queryset = Client.objects.all()
+
+
 #  This is the Product Detail View for simple CRUD operations
 class ProductDetailView(RetrieveUpdateDestroyAPIView):
     authentication_classes = []
@@ -46,3 +54,12 @@ class CategoryDetailView(RetrieveUpdateDestroyAPIView):
     serializer_class = CategorySerializer
     lookup_url_kwarg = 'category_id'
     queryset = Category.objects.all()
+
+
+
+#  This is the Client Detail View for simple CRUD operations
+class ClientDetailView(RetrieveUpdateDestroyAPIView):
+    authentication_classes = []
+    serializer_class = ClientSerializer
+    lookup_url_kwarg = 'client_id'
+    queryset = Client.objects.all()

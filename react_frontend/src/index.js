@@ -26,6 +26,9 @@ import CreateProduct from './pages/create-product';
 import Categories from './pages/categories';
 import CategoryDetails from './pages/category/[id]';
 import CreateCategory from './pages/create-category';
+import Clients from './pages/clients';
+import ClientDetails from './pages/client/[id].jsx';
+import CreateClient from "./pages/create-client"
 
 
 
@@ -42,6 +45,9 @@ render(
             <Route exact path="/categories" element={<Categories />} />
             <Route exact path="/category/:id" element={<CategoryDetails />} />
             <Route exact path="/create-category" element={<CreateCategory />} />
+            <Route exact path="/clients" element={<Clients />} />
+            <Route exact path="/client/:id" element={<ClientDetails />} />
+            <Route exact path="/create-client" element={<CreateClient />} />
           </Routes>
         </Layout>
       </MenuProvider>

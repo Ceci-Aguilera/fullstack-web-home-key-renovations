@@ -1,15 +1,15 @@
-.categories-div{
+.clients-div{
     height: 100%;
     min-height: 100vh;
 }
 
-.categories-title{
+.clients-title{
     margin-top: 50px;
     font-weight:bold;
     text-align: center;
 }
 
-.categories-list{
+.clients-list{
     width: 90%;
     max-width: 1000px;
     margin-top: 25px;
@@ -17,8 +17,8 @@
     margin-right: auto !important;
 }
 
-.categories-list-element{
-    width: 600px;
+.clients-list-element{
+    width: 800px;
     height: 50px;
     border-radius: 10px;
     margin-top: 25px;
@@ -28,21 +28,21 @@
     flex-direction: row;
 }
 
-.categories-list-element-div{
-    width: 500px;
+.clients-list-element-div{
+    width: 600px;
     height: 50px;
     border: 2px solid #f2c17d;
     border-radius: 10px;
 }
 
-.categories-list-element-p{
+.clients-list-element-p{
     height: 50px;
     padding-left: 10px;
     font-weight: bold;
     line-height: 50px;
 }
 
-.categories-list-element-button{
+.clients-list-element-button{
     height: 50px;
     width: 100px;
     background-color: #444438 !important;
@@ -50,7 +50,7 @@
     line-height: 35px;
 }
 
-.categories-add-div{
+.clients-add-div{
     width: 90%;
     max-width: 600px;
     margin-top: 50px;
@@ -59,7 +59,7 @@
     text-align: end;
 }
 
-.categories-add-button{
+.clients-add-button{
     width: 250px;
     height: 50px;
     background-color: #444438;
@@ -72,10 +72,17 @@
     box-shadow: 0px 1px 10px #999;
 }
 
-.categories-add-button:hover,
-.categories-add-button:active,
-.categories-add-button:after,
-.categories-add-button:focus{
+.clients-add-button:hover,
+.clients-add-button:active,
+.clients-add-button:after,
+.clients-add-button:focus{
     background-color: #f2c17d;
     color:#444438 !important;
+}
+
+
+
+.clients-span{
+    color: #a44200;
+    margin-right: 50px;
 }

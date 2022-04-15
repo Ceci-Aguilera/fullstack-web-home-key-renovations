@@ -45,3 +45,33 @@ class Client(models.Model):
 
     def __str__(self):
         return self.first_name + " " + self.last_name
+
+
+
+class Order(models.Model):
+
+    description = models.TextField(blank=True)
+    pricing_materials = models.FloatField(default=0.0)
+    bill_for_service = models.FloatField(default=0.0)
+    # This includes the 0.7 of taxes
+    total_cost = models.FloatField(default=0.0)
+    client = models.ForeignKey(Client, blank=True, null=True, on_delete=models.CASCADE)
+
+    confirmed = models.BooleanField(default=False)
+
+    def __str__(self):
+        return str(self.id) + " " + self.description
+
+
+
+class ProductVariation(models.Model):
+
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    amount = models.IntegerField(default=1)
+    pricing = models.FloatField(default=0.0)
+
+    order = models.ForeignKey(Order, null=True, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.product.title + " " + str(self.amount)
+

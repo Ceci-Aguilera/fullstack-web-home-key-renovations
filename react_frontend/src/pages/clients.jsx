@@ -15,32 +15,68 @@ export default function Clients() {
 
     const [clients, setClients] = useState([]);
 
+    const [searchTerm, setSearchTerm] = useState('')
+
+    const [clientsToDisplay, setClientsToDisplay] = useState([])
+
+
     useEffect(() => {
-        console.log("Cat")
-        async function fetchCategories() {
+        async function fetchClients() {
             const clients_temp = await getClients();
             setClients(clients_temp.clients);
         }
 
-        fetchCategories();
+        fetchClients();
+        setClientsToDisplay(clients)
     }, [])
+
+    useEffect(() => {
+        setClientsToDisplay(clients);
+    }, [clients])
+
+    const onSubmit = (e) => {
+        e.preventDefault();
+        setClientsToDisplay(clients.filter((element) => {
+            if (searchTerm == "") {
+                return element;
+            }
+            else if (element.email.toLowerCase().includes(searchTerm.toLowerCase()) || element.phone.toLowerCase().includes(searchTerm.toLowerCase())) {
+                return element;
+            }
+        }));
+    }
 
 
     return (
         <div className="clients-div">
 
-            <h1 className="clients-title">Categories</h1>
+            <h1 className="clients-title">Clients</h1>
+
+            <Form className="d-flex clients-search-form" onSubmit={(e) => onSubmit(e)}>
+                        <Form.Control
+                            type="search"
+                            placeholder="Search"
+                            className="me-2 clients-search"
+                            aria-label="Search"
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                        />
+                        <Button variant="warning" className="clients-search-button" type="submit">Search</Button>
+                    </Form>
+
 
             <div className="clients-add-div">
                         <Button href={`/create-client`} variant="secondary" className="clients-add-button">
-                           + ADD New Category
+                           + ADD New Client
                         </Button>
                     </div>
 
             {clients == null ? <div></div> :
 
                 <div className="clients-list">
-                    {clients.sort(function (a, b) {
+               
+
+                    {clientsToDisplay.sort(function (a, b) {
                         if (a.first_name > b.first_name) {
                             return 1;
                         } else if (a.first_name < b.first_name) {
@@ -52,7 +88,7 @@ export default function Clients() {
                             <InputGroup key={index} className="mb-3 clients-list-element">
                                 <div className="clients-list-element-div">
                                     <p className="clients-list-element-p">
-                                        <span className="clients-span">{client.first_name} {client.last_name}</span> {client.email} {client.phone}
+                                        <span className="clients-span">{client.first_name} {client.last_name}</span> {client.email} <span className="clients-span-space">{client.phone}</span>
                                     </p>
                                 </div>
                                 <Button href={`/client/${client.id}`} variant="secondary" className="clients-list-element-button">

@@ -18,7 +18,7 @@
 }
 
 .clients-list-element{
-    width: 800px;
+    width: 1000px;
     height: 50px;
     border-radius: 10px;
     margin-top: 25px;
@@ -29,7 +29,7 @@
 }
 
 .clients-list-element-div{
-    width: 600px;
+    width: 800px;
     height: 50px;
     border: 2px solid #f2c17d;
     border-radius: 10px;
@@ -46,14 +46,16 @@
     height: 50px;
     width: 100px;
     background-color: #444438 !important;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
     align-items:baseline;
     line-height: 35px;
 }
 
 .clients-add-div{
     width: 90%;
-    max-width: 600px;
-    margin-top: 50px;
+    max-width: 800px;
+    margin-top: 25px;
     margin-left: auto !important;
     margin-right: auto !important;
     text-align: end;
@@ -83,6 +85,28 @@
 
 
 .clients-span{
-    color: #a44200;
+    color: #f2c17d;
     margin-right: 50px;
+}
+
+.clients-span-space{
+    color: #f2c17d;
+    margin-left: 50px;
+}
+
+.clients-search-form{
+    width: 90%;
+    max-width: 800px;
+    margin-top: 50px;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+.clients-search{
+    height: 50px;
+    box-shadow: 0px 1px 10px #999;
+}
+
+.clients-search-button{
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }

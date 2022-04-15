@@ -25,3 +25,22 @@ class ClientSerializer(serializers.ModelSerializer):
     class Meta:
         model = Client
         fields = '__all__'
+
+# This is the Order Serializer
+class OrderSerializer(serializers.ModelSerializer):
+
+    client = ClientSerializer(read_only=True)
+
+    class Meta:
+        model = Order
+        fields = '__all__'
+
+
+# This is the Product Variation Serializer
+class ProductVariationSerializer(serializers.ModelSerializer):
+
+    product = ProductSerializer(read_only=True)
+
+    class Meta:
+        model = ProductVariation
+        fields = '__all__'

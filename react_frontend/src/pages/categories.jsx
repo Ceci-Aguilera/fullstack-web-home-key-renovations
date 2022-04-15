@@ -16,7 +16,6 @@ export default function Categories() {
     const [categories, setCategories] = useState([]);
 
     useEffect(() => {
-        console.log("Cat")
         async function fetchCategories() {
             const categories_temp = await getCategories();
             setCategories(categories_temp.categories);

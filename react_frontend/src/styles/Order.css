@@ -1,0 +1,46 @@
+.create-order-div{
+    height: 100%;
+    min-height: 100vh;
+}
+
+.create-order-row{
+    margin-top: 50px;
+}
+
+.create-order-card{
+    width: 90%;
+    max-width: 600px;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.create-order-card-header{
+    background-color: white !important;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+.create-order-product-var-div{
+    width: 350px;
+    min-width: max-content;
+    display: flex;
+    flex-direction: row;
+    justify-content:space-between;
+    text-align: start;
+}
+
+.create-order-product-var-p{
+    height: 50px;
+}
+
+.create-order-product-var-delete-button{
+    height: 20px !important;
+    width: max-content;
+    margin-right: 0px;
+    border-radius: 20px !important;
+    line-height: 5px !important;
+    font-weight: bold !important;
+    text-align: center !important;
+}

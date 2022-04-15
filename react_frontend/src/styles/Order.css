@@ -23,7 +23,7 @@
 }
 
 .create-order-product-var-div{
-    width: 350px;
+    width: 500px;
     min-width: max-content;
     display: flex;
     flex-direction: row;
@@ -36,11 +36,27 @@
 }
 
 .create-order-product-var-delete-button{
-    height: 20px !important;
-    width: max-content;
+    height: 25px !important;
+    width: 90px;
     margin-right: 0px;
     border-radius: 20px !important;
-    line-height: 5px !important;
+    line-height: 10px !important;
     font-weight: bold !important;
     text-align: center !important;
+}
+
+.create-order-card-footer{
+    background-color: white !important;
+    display: flex;
+    flex-direction: row;
+    justify-content:end;
+}
+
+.create-order-save-button{
+    font-size: 1.2rem;
+}
+
+.create-order-cancel-button{
+    margin-right: 20px;
+    font-size: 1.2rem;
 }

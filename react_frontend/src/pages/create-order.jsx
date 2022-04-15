@@ -14,7 +14,8 @@ import axios from "axios";
 
 import { useNavigate } from 'react-router';
 import SelectProducts from "../components/SelectProducts";
-import CreateProductVariationModal from "../components/CreateProductVariation.Modal";
+import CreateProductVariationModal from "../components/CreateProductVariationModal";
+import EditProductVariationModal from "../components/EditProductVariationModal";
 
 
 const CreateOrder = () => {
@@ -28,9 +29,18 @@ const CreateOrder = () => {
   const handleCloseModal = () => setShowModal(false);
   const handleShowModal = () => setShowModal(true);
 
+  const [showModalEdit, setShowModalEdit] = useState(false);
+
+  const handleCloseModalEdit = () => setShowModalEdit(false);
+  const handleShowModalEdit = () => setShowModalEdit(true);
+
   const [current_item, setCurrentItem] = useState(null)
+  const [current_item_edit, setCurrentItemEdit] = useState(null)
 
   const [product_variations, setProductVariations] = useState([]);
+
+  const [confirmed, setConfirmed] = useState(false);
+  const [bill_for_service, setBillForService] = useState(0);
 
 
   const navigate = useNavigate();
@@ -56,14 +66,47 @@ const CreateOrder = () => {
     setCurrentItem(null)
   }, [product_variations])
 
+  useEffect(() => {
+    handleCloseModalEdit();
+    setCurrentItemEdit(null)
+  }, [product_variations])
+
   const onAddItem = (item) => {
     setCurrentItem(item);
   }
 
 
 
+  useEffect(() => {
+    if (current_item_edit != null) {
+      handleShowModalEdit();
+    }
+  }, [current_item_edit])
+
+
+  useEffect(() => {
+    if (showModal == false) {
+      setCurrentItem(null)
+    }
+  }, [showModal])
+
+  useEffect(() => {
+    if (showModalEdit == false) {
+      setCurrentItemEdit(null)
+    }
+  }, [showModalEdit])
+
+  const onEditItem = (e, index) => {
+    e.preventDefault();
+    setCurrentItemEdit(index);
+  }
+
+
+
+
+
   const addProductVariation = (item, amount) => {
-    setProductVariations([...product_variations, { id: item.id, title: item.title, amount: amount }]);
+    setProductVariations([...product_variations, { id: item.id, title: item.title, amount: amount, base_pricing: item.pricing }]);
   }
 
 
@@ -71,6 +114,12 @@ const CreateOrder = () => {
     e.preventDefault();
     setProductVariations(product_variations.filter((_, i) => i !== index));
   }
+
+  const editProductVariation = (index, amount) => {
+    product_variations[index].amount = amount;
+    setProductVariations([...product_variations]);
+  }
+
 
 
   return (
@@ -109,8 +158,17 @@ const CreateOrder = () => {
 
                 <Form.Group className="mb-3">
                   <Form.Label className="product-detail-form-card-body-form-label">Bill of Installation Service</Form.Label>
-                  <Form.Control type="number" steps="0.01" placeholder="0.0" />
+                  <Form.Control type="number" steps="0.01" placeholder="0.0" value={bill_for_service} onChange={(e) => setBillForService(e)} />
                 </Form.Group>
+
+                <div key={`default-checkbox}`} className="mb-3" onChange={(e) => setConfirmed(e.target.checked)}>
+                  <Form.Check
+                    type={"checkbox"}
+                    id={`default-checkbox`}
+                    label="Confirmed"
+                    className="product-detail-form-card-body-form-label"
+                  />
+                </div>
 
                 <div>
                   <p className="product-detail-form-card-body-form-label">Products</p>
@@ -120,6 +178,15 @@ const CreateOrder = () => {
                         <p className="create-order-product-var-p">
                           {product_var.amount} x {product_var.title}
                         </p>
+
+                        <p className="create-order-product-var-p">
+                          ${parseFloat(product_var.amount * product_var.base_pricing).toFixed(2)}
+                        </p>
+
+                        <Button variant="warning" className="create-order-product-var-delete-button" onClick={(e) => onEditItem(e, index)}>
+                          Edit
+                        </Button>
+
                         <Button variant="danger" className="create-order-product-var-delete-button" onClick={(e) => onDeleteItem(e, index)}>
                           Delete
                         </Button>
@@ -127,7 +194,24 @@ const CreateOrder = () => {
                     )
                   })}
                 </div>
+
+                <p className="product-detail-form-card-body-form-label">Taxes: 0.7%</p>
+
+                <p className="product-detail-form-card-body-form-label">
+                  Total Amount: ${parseFloat((calculateTaxes(product_variations) + bill_for_service)
+                    + (calculateTaxes(product_variations) + bill_for_service) * 0.07).toFixed(2)}
+                </p>
+
               </Card.Body>
+              <Card.Footer className="create-order-card-footer">
+                <Button variant="secondary" className="create-order-cancel-button">
+                  CANCEL
+                </Button>
+
+                <Button variant="warning" className="create-order-save-button">
+                  SAVE
+                </Button>
+              </Card.Footer>
             </Card>
           </Col>
           <Col xs={12} sm={12} md={12} lg={6} className="create-order-col">
@@ -136,6 +220,7 @@ const CreateOrder = () => {
         </Row>
 
         <CreateProductVariationModal show={showModal} handleClose={handleCloseModal} item={current_item} addProductVariation={addProductVariation} />
+        <EditProductVariationModal show={showModalEdit} handleClose={handleCloseModalEdit} index={current_item_edit} product_variations={product_variations} editProductVariation={editProductVariation} />
       </div>
     </>
   );
@@ -170,6 +255,15 @@ const getClients = async () => {
   })
 
 
+}
+
+
+const calculateTaxes = (items) => {
+  var total_taxes = 0;
+  for (let i = 0; i < items.length; i++) {
+    total_taxes += (items[i].amount * items[i].base_pricing)
+  }
+  return total_taxes;
 }
 
 

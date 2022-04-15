@@ -34,7 +34,7 @@ function CreateProductVariationModal({ show, handleClose, item, addProductVariat
                 <Button variant="secondary" onClick={handleClose}>
                     Close
                 </Button>
-                <Button variant="primary" onClick={(e) => addProductVariationHandler(e)}>
+                <Button variant="warning" onClick={(e) => addProductVariationHandler(e)}>
                     Save Changes
                 </Button>
             </Modal.Footer>

@@ -11,6 +11,8 @@ import { NavLink } from "react-router-dom";
 import {useContextMenu} from "../context/MenuContext";
 // import {useAuth} from "../context/AuthContext";
 
+import logo from "../assets/logos/HKR_LOGO.png";
+
 const user = null;
 
 function CustomNavbar() {
@@ -27,15 +29,15 @@ function CustomNavbar() {
       {/* <Container className="navbar-div"> */}
         <Navbar.Brand exact to="/"
               as={NavLink} className="navbar-brand">
-          {/* <img
+          <img
             src={logo}
-            width="100%"
-            height="80"
+            width="120%"
+            height="120"
             className="d-inline-block align-top navbar-brand-img"
             alt="React Bootstrap logo"
             onClick={()=>setCurrentLinkHelper("Home")}
-          /> */}
-         Home Key Renovations
+          />
+         {/* Home Key Renovations */}
         </Navbar.Brand>
         <Navbar.Toggle  className="navbar-toggle" aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">

@@ -52,7 +52,9 @@ export default function Orders() {
                                 <div className="clients-list-element-div">
                                     <p className="clients-list-element-p">
                                         <span className="clients-span">{order.id}</span> <span className="order-span">{order.client.email}</span>  
-                                        <span className="order-span">{order.client.phone}</span> ${order.total_cost} 
+                                        <span className="order-span">{order.client.phone}</span> 
+                                        <span className="order-span">{order.scale}</span>
+                                        <span className="order-span">${order.total_cost}</span>
                                         <span className="clients-span-space">{order.confirmed?"Confirmed":"Not Confirmed"}</span>
                                     </p>
                                 </div>

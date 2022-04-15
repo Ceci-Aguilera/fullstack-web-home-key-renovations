@@ -44,3 +44,12 @@ class ProductVariationSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProductVariation
         fields = '__all__'
+
+# This is the Order Serializer
+class OrderSerializer(serializers.ModelSerializer):
+
+    client = ClientSerializer(read_only=True)
+
+    class Meta:
+        model = Order
+        fields = '__all__'

@@ -53,6 +53,7 @@ class Order(models.Model):
     description = models.TextField(blank=True)
     pricing_materials = models.FloatField(default=0.0)
     bill_for_service = models.FloatField(default=0.0)
+    scale = models.CharField(max_length=50, default="Low")
     # This includes the 0.7 of taxes
     total_cost = models.FloatField(default=0.0)
     client = models.ForeignKey(Client, blank=True, null=True, on_delete=models.CASCADE)

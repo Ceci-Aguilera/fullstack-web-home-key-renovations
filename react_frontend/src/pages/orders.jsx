@@ -51,7 +51,9 @@ export default function Orders() {
                             <InputGroup key={index} className="mb-3 clients-list-element">
                                 <div className="clients-list-element-div">
                                     <p className="clients-list-element-p">
-                                        <span className="clients-span">{order.id}</span>
+                                        <span className="clients-span">{order.id}</span> <span className="order-span">{order.client.email}</span>  
+                                        <span className="order-span">{order.client.phone}</span> ${order.total_cost} 
+                                        <span className="clients-span-space">{order.confirmed?"Confirmed":"Not Confirmed"}</span>
                                     </p>
                                 </div>
                                 <Button href={`/client/${order.id}`} variant="secondary" className="clients-list-element-button">
@@ -78,17 +80,17 @@ const getOrders = async () => {
         }
     }
 
-    const orders_url = "/digital-warehouse/clients"
+    const orders_url = "/digital-warehouse/orders"
 
 
     return axios.get(orders_url, config).then(async (res) => {
         const result = await res.data;
         return {
-            status: "CLIENTS_FOUND", clients: result
+            status: "ORDERS_FOUND", orders: result
         }
     }).catch((error) => {
         return {
-            status: "CLIENTS_NOT_FOUND", clients: []
+            status: "ORDERS_NOT_FOUND", orders: []
         }
     })
 

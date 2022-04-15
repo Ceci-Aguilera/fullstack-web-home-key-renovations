@@ -42,6 +42,10 @@ const CreateOrder = () => {
   const [confirmed, setConfirmed] = useState(false);
   const [bill_for_service, setBillForService] = useState(0);
 
+  const [current_client, setCurrentClient] = useState(null);
+  const [description, setDescription] = useState("");
+  const [scale, setScale] = useState("Low");
+
 
   const navigate = useNavigate();
 
@@ -53,6 +57,12 @@ const CreateOrder = () => {
 
     fetchClients();
   }, [])
+
+  useEffect(() => {
+    if (clients.length > 0) {
+      setCurrentClient(clients[0]);
+    }
+  }, [clients])
 
   useEffect(() => {
     if (current_item != null) {
@@ -121,6 +131,23 @@ const CreateOrder = () => {
   }
 
 
+  const onSaveHandler = async (e) => {
+    e.preventDefault();
+
+    const body = JSON.stringify({
+      client_id: current_client.id,
+      description: description,
+      scale: scale,
+      bill_for_service: parseFloat(bill_for_service),
+      confirmed: confirmed,
+      product_variations: product_variations,
+    });
+
+    await onSave(body);
+    navigate("/orders", { replace: true })
+  }
+
+
 
   return (
     <>
@@ -144,12 +171,12 @@ const CreateOrder = () => {
 
                 <Form.Group className="mb-3">
                   <Form.Label className="product-detail-form-card-body-form-label">Description</Form.Label>
-                  <Form.Control as="textarea" rows={6} placeholder="Description" />
+                  <Form.Control as="textarea" rows={6} placeholder="Description" value={description} onChange={(e) => setDescription(e.target.value)} />
                 </Form.Group>
 
                 <Form.Group className="mb-3">
                   <Form.Label className="product-detail-form-card-body-form-label">Scale</Form.Label>
-                  <Form.Select aria-label="Default select example">
+                  <Form.Select aria-label="Default select example" value={scale} onChange={(e) => setScale(e.target.value)}>
                     <option value="Low">Low</option>
                     <option value="Medium">Medium</option>
                     <option value="High">High</option>
@@ -158,7 +185,7 @@ const CreateOrder = () => {
 
                 <Form.Group className="mb-3">
                   <Form.Label className="product-detail-form-card-body-form-label">Bill of Installation Service</Form.Label>
-                  <Form.Control type="number" steps="0.01" placeholder="0.0" value={bill_for_service} onChange={(e) => setBillForService(e)} />
+                  <Form.Control type="number" steps="0.01" placeholder="0.0" value={bill_for_service} onChange={(e) => setBillForService(e.target.value)} />
                 </Form.Group>
 
                 <div key={`default-checkbox}`} className="mb-3" onChange={(e) => setConfirmed(e.target.checked)}>
@@ -198,17 +225,20 @@ const CreateOrder = () => {
                 <p className="product-detail-form-card-body-form-label">Taxes: 0.7%</p>
 
                 <p className="product-detail-form-card-body-form-label">
-                  Total Amount: ${parseFloat((calculateTaxes(product_variations) + bill_for_service)
-                    + (calculateTaxes(product_variations) + bill_for_service) * 0.07).toFixed(2)}
+                  Total Amount: ${
+                    parseFloat(
+                      parseFloat(calculateTaxes(product_variations)) + parseFloat(bill_for_service)
+                      + parseFloat((parseFloat(calculateTaxes(product_variations)) + parseFloat(bill_for_service)) * 0.07)
+                    ).toFixed(2)}
                 </p>
 
               </Card.Body>
               <Card.Footer className="create-order-card-footer">
-                <Button variant="secondary" className="create-order-cancel-button">
+                <Button href="/orders" variant="secondary" className="create-order-cancel-button">
                   CANCEL
                 </Button>
 
-                <Button variant="warning" className="create-order-save-button">
+                <Button variant="warning" className="create-order-save-button" onClick={(e) => onSaveHandler(e)}>
                   SAVE
                 </Button>
               </Card.Footer>
@@ -266,6 +296,28 @@ const calculateTaxes = (items) => {
   return total_taxes;
 }
 
+
+
+
+
+const onSave = async (body) => {
+  // const token = window.localStorage.getItem("token")
+
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      // "Authorization": `Token ${token}`
+    }
+  }
+
+  const order_url = `/digital-warehouse/orders/`
+
+
+  await axios.post(order_url, body, config).then(async (res) => {
+  }).catch((error) => {
+    console.log(error)
+  })
+}
 
 
 export default CreateOrder;

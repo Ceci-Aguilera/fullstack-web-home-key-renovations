@@ -10,4 +10,5 @@ urlpatterns = [
     url(r'^product/(?P<product_id>\d+)/$', ProductDetailView.as_view(), name='product-detail-api'),
     url(r'^category/(?P<category_id>\d+)/$', CategoryDetailView.as_view(), name='category-detail-api'),
     url(r'^client/(?P<client_id>\d+)/$', ClientDetailView.as_view(), name='client-detail-api'),
+    url(r'^orders/$', OrderListView.as_view(), name='orders-list-api'),
 ]

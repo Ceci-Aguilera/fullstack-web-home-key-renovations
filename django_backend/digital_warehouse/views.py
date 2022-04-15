@@ -63,3 +63,39 @@ class ClientDetailView(RetrieveUpdateDestroyAPIView):
     serializer_class = ClientSerializer
     lookup_url_kwarg = 'client_id'
     queryset = Client.objects.all()
+
+
+#  This is the Order List and Create View
+class OrderListView(APIView):
+
+    authentication_classes = []
+
+    def get(self, request):
+        orders = Order.objects.all()
+        order_serializer = OrderSerializer(orders, many=True).data
+        return Response(order_serializer, status=status.HTTP_200_OK)
+        
+
+    def post(self, request):
+
+        data = request.data
+
+        client = Client.objects.get(id = data['client_id'])
+        if(data['confirmed'] == True):
+            client.amount_of_works += 1;
+            client.save()
+
+        order = Order(client=client, description=data['description'], scale=data['scale'], confirmed=data['confirmed'], bill_for_service=data['bill_for_service'])
+        order.save()
+
+        for prod_var in data['product_variations']:
+            product_variation = ProductVariation(product_id=prod_var['id'], amount=prod_var['amount'], pricing=prod_var['amount'] * prod_var['base_pricing'], order=order)
+            order.pricing_materials += (prod_var['amount'] * prod_var['base_pricing'])
+            product_variation.save()   
+
+        order.save()
+        
+        order.total_cost = (order.pricing_materials + order.bill_for_service) + (order.pricing_materials + order.bill_for_service) * 0.07
+        order.save()
+
+        return Response({"Result": "Success"}, status=status.HTTP_200_OK)

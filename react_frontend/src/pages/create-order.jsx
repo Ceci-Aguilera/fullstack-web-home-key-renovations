@@ -18,6 +18,12 @@ import CreateProductVariationModal from "../components/CreateProductVariationMod
 import EditProductVariationModal from "../components/EditProductVariationModal";
 
 
+var d = new Date();     
+var currMonth = d.getMonth();
+var currYear = d.getFullYear();    
+var currDate = d.getDate();
+
+
 const CreateOrder = () => {
 
   const [clients, setClients] = useState([]);
@@ -46,6 +52,9 @@ const CreateOrder = () => {
   const [description, setDescription] = useState("");
   const [scale, setScale] = useState("Low");
 
+  const [start_date, setStart_date] = useState(new Date().toISOString().slice(0, -14));
+  const [end_date, setEnd_date] = useState(new Date().toISOString().slice(0, -14));
+
 
   const navigate = useNavigate();
 
@@ -57,6 +66,8 @@ const CreateOrder = () => {
 
     fetchClients();
   }, [])
+
+
 
   useEffect(() => {
     if (clients.length > 0) {
@@ -141,6 +152,8 @@ const CreateOrder = () => {
       bill_for_service: parseFloat(bill_for_service),
       confirmed: confirmed,
       product_variations: product_variations,
+      start_date: start_date,
+      end_date: end_date
     });
 
     await onSave(body);
@@ -187,6 +200,23 @@ const CreateOrder = () => {
                   <Form.Label className="product-detail-form-card-body-form-label">Bill of Installation Service</Form.Label>
                   <Form.Control type="number" steps="0.01" placeholder="0.0" value={bill_for_service} onChange={(e) => setBillForService(e.target.value)} />
                 </Form.Group>
+
+
+                <Row className="create-order-start-date-row">
+                  <Col xs={6} sm={6} md={6} lg={6} className="create-order-col">
+                  <Form.Group className="mb-3">
+                  <Form.Label className="product-detail-form-card-body-form-label">Start Date</Form.Label>
+                  <Form.Control type="date"  value={start_date} onChange={(e) => setStart_date(e.target.value)} />
+                </Form.Group>
+                  </Col>
+
+                  <Col xs={6} sm={6} md={6} lg={6} className="create-order-col">
+                  <Form.Group className="mb-3">
+                  <Form.Label className="product-detail-form-card-body-form-label">End Date</Form.Label>
+                  <Form.Control type="date"  value={end_date} onChange={(e) => setEnd_date(e.target.value)} />
+                </Form.Group>
+                  </Col>
+                </Row>
 
                 <div key={`default-checkbox}`} className="mb-3" onChange={(e) => setConfirmed(e.target.checked)}>
                   <Form.Check

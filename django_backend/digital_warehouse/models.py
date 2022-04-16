@@ -1,4 +1,5 @@
 from django.db import models
+import datetime
 
 
 class Category(models.Model):
@@ -59,6 +60,9 @@ class Order(models.Model):
     client = models.ForeignKey(Client, blank=True, null=True, on_delete=models.CASCADE)
 
     confirmed = models.BooleanField(default=False)
+
+    start_date = models.DateTimeField(blank=True, default=datetime.date.today)
+    end_date = models.DateTimeField(blank=True, default=datetime.date.today)
 
     def __str__(self):
         return str(self.id) + " " + self.description

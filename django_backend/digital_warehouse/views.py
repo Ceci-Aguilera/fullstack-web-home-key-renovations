@@ -85,7 +85,9 @@ class OrderListView(APIView):
             client.amount_of_works += 1;
             client.save()
 
-        order = Order(client=client, description=data['description'], scale=data['scale'], confirmed=data['confirmed'], bill_for_service=data['bill_for_service'])
+        order = Order(client=client, description=data['description'], scale=data['scale'], confirmed=data['confirmed'], 
+            bill_for_service=data['bill_for_service'], start_date=data['start_date'], end_date=data['end_date']
+        )
         order.save()
 
         for prod_var in data['product_variations']:
@@ -129,6 +131,8 @@ class OrderDetailView(APIView):
         order.bill_for_service=data['bill_for_service']
         order.pricing_materials = 0 
         order.total_cost = 0
+        order.start_date = data['start_date']
+        order.start_date = data['end_date']
         order.save()
 
         ProductVariation.objects.all().filter(order=order).delete()

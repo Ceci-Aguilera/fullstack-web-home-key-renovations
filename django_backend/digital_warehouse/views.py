@@ -99,3 +99,53 @@ class OrderListView(APIView):
         order.save()
 
         return Response({"Result": "Success"}, status=status.HTTP_200_OK)
+
+
+#  This is the Order Detail View for simple CRUD operations
+class OrderDetailView(APIView):
+    authentication_classes = []
+
+    def get(self, request, order_id):
+
+        order = Order.objects.get(id=order_id)
+        product_variations = ProductVariation.objects.filter(order=order)
+
+        order_serializer = OrderSerializer(order).data
+        product_variations_serializer = ProductVariationSerializer(product_variations, many=True).data
+        
+        return Response({"Order": order_serializer, "Products": product_variations_serializer}, status=status.HTTP_200_OK)
+
+    def post(self, request, order_id):
+
+        data = request.data
+
+        client = Client.objects.get(id = data['client_id'])
+
+        order = Order(id=order_id)
+        order.client=client
+        order.description=data['description']
+        order.scale=data['scale']
+        order.confirmed=data['confirmed']
+        order.bill_for_service=data['bill_for_service']
+        order.pricing_materials = 0 
+        order.total_cost = 0
+        order.save()
+
+        ProductVariation.objects.all().filter(order=order).delete()
+
+        for prod_var in data['product_variations']:
+            product_variation = ProductVariation(product_id=prod_var['product']['id'], amount=prod_var['amount'], pricing=prod_var['amount'] * prod_var['product']['pricing'], order=order)
+            order.pricing_materials += (prod_var['amount'] * prod_var['product']['pricing'])
+            product_variation.save()   
+
+        order.save()
+        
+        order.total_cost = (order.pricing_materials + order.bill_for_service) + (order.pricing_materials + order.bill_for_service) * 0.07
+        order.save()
+
+        return Response({"Result": "Success"}, status=status.HTTP_200_OK)
+
+    def delete(self, request, order_id):
+        order = Order.objects.get(id=order_id)
+        order.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)

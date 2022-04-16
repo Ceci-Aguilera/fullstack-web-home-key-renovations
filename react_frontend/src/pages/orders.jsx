@@ -58,7 +58,7 @@ export default function Orders() {
                                         <span className="clients-span-space">{order.confirmed?"Confirmed":"Not Confirmed"}</span>
                                     </p>
                                 </div>
-                                <Button href={`/client/${order.id}`} variant="secondary" className="clients-list-element-button">
+                                <Button href={`/order/${order.id}`} variant="secondary" className="clients-list-element-button">
                                     Edit
                                 </Button>
                             </InputGroup>

@@ -62,6 +62,11 @@
 }
 
 .order-span{
-    margin-left: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.create-order-delete-button{
     margin-right: 20px;
+    font-size: 1.2rem;
 }

@@ -75,7 +75,16 @@
   }
   
   .footer-space-div{
-      margin-bottom: 20px;
+      margin-bottom: 50px;
+  }
+
+  .footer-dev-div{
+    width: 100% !important;
+    margin-top: 25px;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    text-align: center !important;
+    font-weight: bold;
   }
   
   .contact-us-s-media-row{

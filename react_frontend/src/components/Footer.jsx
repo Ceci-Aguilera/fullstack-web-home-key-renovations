@@ -7,22 +7,22 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 
-import {useContextMenu} from "../context/MenuContext";
-import {useAuth} from "../context/AuthContext";
+import { useContextMenu } from "../context/MenuContext";
+import { useAuth } from "../context/AuthContext";
 
 function Footer() {
 
-const {current_link, setCurrentLinkHelper} = useContextMenu();
+  const { current_link, setCurrentLinkHelper } = useContextMenu();
 
-const {user} = useAuth();
+  const { user } = useAuth();
 
-    useEffect(() => {
+  useEffect(() => {
     // console.log(current_link);
   }, [current_link])
 
 
 
-  return (user == null)?<div></div>:(
+  return (user == null) ? <div></div> : (
     <footer className="footer">
       <Container className="footer-div">
         <Row className="footer-nav-row">
@@ -30,28 +30,28 @@ const {user} = useAuth();
 
             <Link exact to="/categories"
               as={NavLink} className="footer-link">
-              <span onClick={()=>setCurrentLinkHelper("Categories")} className={current_link=="Categories"?"secondary-color-span":""}>Categories</span>
+              <span onClick={() => setCurrentLinkHelper("Categories")} className={current_link == "Categories" ? "secondary-color-span" : ""}>Categories</span>
             </Link>
 
             <Link exact to="/"
-              as={NavLink}  className="footer-link">
-              <span onClick={()=>setCurrentLinkHelper("Products")} className={current_link=="Products"?"secondary-color-span":""}>Products</span>
+              as={NavLink} className="footer-link">
+              <span onClick={() => setCurrentLinkHelper("Products")} className={current_link == "Products" ? "secondary-color-span" : ""}>Products</span>
             </Link>
 
 
-            <Link exact to="/clients" as={NavLink}  className="footer-link">
-            <span onClick={()=>setCurrentLinkHelper("Clients")} className={current_link=="Clients"?"secondary-color-span":""}>Clients</span>
+            <Link exact to="/clients" as={NavLink} className="footer-link">
+              <span onClick={() => setCurrentLinkHelper("Clients")} className={current_link == "Clients" ? "secondary-color-span" : ""}>Clients</span>
             </Link>
 
-            <Link exact to="/orders" as={NavLink}  className="footer-link">
-            <span onClick={()=>setCurrentLinkHelper("Orders")} className={current_link=="Orders"?"secondary-color-span":""}>Orders</span>
+            <Link exact to="/orders" as={NavLink} className="footer-link">
+              <span onClick={() => setCurrentLinkHelper("Orders")} className={current_link == "Orders" ? "secondary-color-span" : ""}>Orders</span>
             </Link>
 
-            {user?
-              <Link exact to="/logout" as={NavLink}  className="footer-link">
-                <span onClick={()=>setCurrentLinkHelper("Logout")} className={current_link=="Logout"?"secondary-color-span":""}>Logout</span>
+            {user ?
+              <Link exact to="/logout" as={NavLink} className="footer-link">
+                <span onClick={() => setCurrentLinkHelper("Logout")} className={current_link == "Logout" ? "secondary-color-span" : ""}>Logout</span>
               </Link>
-            :""}
+              : ""}
 
 
           </div>
@@ -61,6 +61,11 @@ const {user} = useAuth();
 
         <Row className="footer-space-row">
           <div className="footer-space-div" />
+          <div className="footer-dev-div" >
+            <p className="footer-dev-div-p">
+              Developed by Cecilia Fernandez Aguilera
+            </p>
+          </div>
         </Row>
       </Container>
     </footer>

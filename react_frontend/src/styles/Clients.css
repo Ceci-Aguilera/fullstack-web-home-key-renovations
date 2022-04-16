@@ -110,3 +110,55 @@
 .clients-search-button{
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
+
+@media screen and (max-width: 578px){
+    .clients-div{
+        height: 100%;
+        min-height: 50vh;
+    }
+
+    .clients-list{
+        max-width: 350px;
+    }
+
+    .clients-list-element{
+        width: 100% !important;
+        height: 300px;
+        display:block;
+    }
+
+    .clients-list-element-div{
+        width: 100% !important;
+        height: 150px;
+        border-radius: 0px !important;
+    }
+
+    .clients-list-element-button{
+        width: 100% !important;
+        height: 50px;
+        border-radius: 0px !important;
+        font-size: 1.5rem;
+    }
+
+    .clients-list-element-p{
+        height: 50px;
+        padding-left: 10px;
+        font-weight: bold;
+        line-height: 50px;
+        display: flex !important;
+        flex-direction: column !important;
+        text-align: center !important;
+    }
+
+    .clients-span{
+        color: #b0874f;
+        margin-right: 0px;
+    }
+    
+    .clients-span-space{
+        color: #b0874f;
+        margin-left: 0px;
+    }
+    
+}
+    

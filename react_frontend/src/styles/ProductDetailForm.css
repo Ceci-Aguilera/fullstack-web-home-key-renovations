@@ -46,3 +46,14 @@
     flex-direction: row;
     justify-content: space-around;
 }
+
+@media screen and (max-width: 578px){
+    .product-detail-form-card{
+        width:90%;
+        max-width:350px;
+    }
+
+    .product-detail-form-card-body-form-button{
+        font-size: 1.2rem;
+    }
+}

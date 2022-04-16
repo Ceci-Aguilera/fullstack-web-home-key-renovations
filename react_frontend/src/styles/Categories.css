@@ -79,3 +79,27 @@
     background-color: #f2c17d;
     color:#444438 !important;
 }
+
+@media screen and (max-width: 578px){
+    .categories-div{
+        height: 100%;
+        min-height: 50vh;
+    }
+
+    .categories-list{
+        max-width: 350px;
+    }
+
+    .categories-list-element{
+        width: 350px;
+    }
+
+    .categories-list-element-div{
+        width: 250px;
+    }
+
+    .categories-list-element-button{
+        width: 100px;
+    }
+
+}

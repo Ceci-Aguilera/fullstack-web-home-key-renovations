@@ -71,6 +71,7 @@ background-image: linear-gradient(315deg, #b05f29 0%, #f2c17d 30%);
 
 @media screen and (max-width: 578px){
   .navbar {
+    height: 100px;
     z-index: 999999;
   }
 
@@ -81,7 +82,7 @@ background-image: linear-gradient(315deg, #b05f29 0%, #f2c17d 30%);
   .navbar-brand-img{
     width: 100%;
     max-width: 200px;
-    height: 50px;
+    height: 70px;
     margin-left: 25px !important;
   }
 

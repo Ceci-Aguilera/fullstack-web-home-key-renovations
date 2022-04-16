@@ -115,4 +115,23 @@
           width: 80%;
           margin-top: 25px;
       }
+
+      .footer-space-div{
+        margin-bottom: 25px;
+    }
+
+    .footer-dev-div{
+        width: 60% !important;
+        margin-top: 25px;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        text-align: center !important;
+        font-weight: bold;
+      }
+
+      .footer {
+        width: 100%;
+        height: max-content;
+        min-height: 400px;
+      }
   }

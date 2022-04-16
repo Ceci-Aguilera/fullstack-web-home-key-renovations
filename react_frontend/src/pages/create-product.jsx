@@ -11,12 +11,14 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import ProductCreateForm from "../components/ProductCreateForm";
 
-
+import { useAuth } from "../context/AuthContext";
 
 
 const CreateProduct = () => {
 
 const { addProduct } = useContextProducts()
+
+const {user} = useAuth();
 
 const [categories, setCategories] = useState([]);
 
@@ -25,9 +27,10 @@ useEffect(() => {
         const categories_temp = await getCategories();
         setCategories(categories_temp.categories);
       }
-
+      if(user != null){
         fetchCategories();
-}, [])
+      }
+}, [user])
 
   return (
     <>
@@ -37,14 +40,12 @@ useEffect(() => {
 };
 
 const getCategories = async () => {
-    // const token = window.localStorage.getItem("token")
-  
-    const config = {
+
+  const config = {
       headers: {
-        "Content-Type": "application/json",
-        // "Authorization": `Token ${token}`
+          "Content-Type": "application/json",
       }
-    }
+  }
   
     const categories_url = "/digital-warehouse/categories"
   

@@ -8,24 +8,24 @@ import { useNavigate } from 'react-router';
 
 const getProducts = async() => {
 
-  // const token = window.localStorage.getItem("token")
+  const token = window.localStorage.getItem("user_token")
 
   const config = {
-    headers: {
-      "Content-Type": "application/json",
-      // "Authorization": `Token ${token}`
-    }
+      headers: {
+          "Content-Type": "application/json",
+      }
   }
 
-  const products_url = "/digital-warehouse/products"
+  const products_url = "/digital-warehouse/products/"
 
 
-  return axios.get(products_url, config).then(async(res) => {
+  return await axios.get(products_url, config).then(async(res) => {
     const result = await res.data;
     return {
       status: "PRODUCTS_FOUND", products: result 
     }
   }).catch((error) => {
+    console.log("error")
     return {
       status: "PRODUCTS_NOT_FOUND", products: [] 
     }
@@ -58,14 +58,12 @@ export const ProductsProvider = ({ children }) => {
 
 
   const editProduct = async (id, body) => {
-      // const token = window.localStorage.getItem("token")
 
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-      // "Authorization": `Token ${token}`
+    const config = {
+        headers: {
+            "Content-Type": "application/json",
+        }
     }
-  }
 
   const product_url = `/digital-warehouse/product/${id}/`
 
@@ -74,7 +72,6 @@ export const ProductsProvider = ({ children }) => {
     const products_res = await getProducts();
     setProduct(products_res.products);
   }).catch((error) => {
-    console.log(error)
   } )
 
   navigate("/", {replace: true})
@@ -82,14 +79,12 @@ export const ProductsProvider = ({ children }) => {
 
 
   const addProduct = async (body) => {
-    // const token = window.localStorage.getItem("token")
 
-const config = {
-  headers: {
-    "Content-Type": "application/json",
-    // "Authorization": `Token ${token}`
-  }
-}
+    const config = {
+        headers: {
+            "Content-Type": "application/json",
+        }
+    }
 
 const product_url = `/digital-warehouse/products/`
 
@@ -98,7 +93,6 @@ await axios.post(product_url, body, config).then(async(res) => {
   const products_res = await getProducts();
   setProduct(products_res.products);
 }).catch((error) => {
-  console.log(error)
 } )
 
 navigate("/", {replace: true})
@@ -107,14 +101,12 @@ navigate("/", {replace: true})
 
 
 const deleteProduct = async (product_id) => {
-  // const token = window.localStorage.getItem("token")
 
-  const config = {
-  headers: {
-    "Content-Type": "application/json",
-    // "Authorization": `Token ${token}`
-  }
-  }
+    const config = {
+        headers: {
+            "Content-Type": "application/json",
+        }
+    }
 
   const product_url = `/digital-warehouse/product/${product_id}/`
 
@@ -123,7 +115,6 @@ const deleteProduct = async (product_id) => {
   const products_res = await getProducts();
   setProduct(products_res.products);
   }).catch((error) => {
-  console.log(error)
   } )
 
   navigate("/", {replace: true})

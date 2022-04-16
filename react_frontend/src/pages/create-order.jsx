@@ -17,14 +17,12 @@ import SelectProducts from "../components/SelectProducts";
 import CreateProductVariationModal from "../components/CreateProductVariationModal";
 import EditProductVariationModal from "../components/EditProductVariationModal";
 
-
-var d = new Date();     
-var currMonth = d.getMonth();
-var currYear = d.getFullYear();    
-var currDate = d.getDate();
+import { useAuth } from "../context/AuthContext";
 
 
 const CreateOrder = () => {
+
+  const {user} = useAuth();
 
   const [clients, setClients] = useState([]);
 
@@ -64,8 +62,10 @@ const CreateOrder = () => {
       setClients(clients_temp.clients);
     }
 
-    fetchClients();
-  }, [])
+    if(user != null){
+      fetchClients();
+    }
+  }, [user])
 
 
 
@@ -291,14 +291,12 @@ const CreateOrder = () => {
 
 
 const getClients = async () => {
-  // const token = window.localStorage.getItem("token")
 
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-      // "Authorization": `Token ${token}`
+    const config = {
+        headers: {
+            "Content-Type": "application/json",
+        }
     }
-  }
 
   const clients_url = "/digital-warehouse/clients"
 
@@ -331,12 +329,10 @@ const calculateTaxes = (items) => {
 
 
 const onSave = async (body) => {
-  // const token = window.localStorage.getItem("token")
 
   const config = {
     headers: {
       "Content-Type": "application/json",
-      // "Authorization": `Token ${token}`
     }
   }
 
@@ -345,7 +341,6 @@ const onSave = async (body) => {
 
   await axios.post(order_url, body, config).then(async (res) => {
   }).catch((error) => {
-    console.log(error)
   })
 }
 

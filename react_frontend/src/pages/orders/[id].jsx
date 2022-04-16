@@ -20,10 +20,13 @@ import SelectProducts from "../../components/SelectProducts";
 import CreateProductVariationModal from "../../components/CreateProductVariationModal";
 import EditProductVariationModal from "../../components/EditProductVariationModal";
 
+import { useAuth } from "../../context/AuthContext";
 
 
 const OrderDetails = () => {
   const { id } = useParams();
+
+  const {user} = useAuth();
 
 
   const navigate = useNavigate();
@@ -73,12 +76,12 @@ const OrderDetails = () => {
 
 
 
-    if (id != null && id !== undefined) {
+    if (user != null && id != null && id !== undefined) {
       fetchOrder();
       fetchClients();
     }
 
-  }, [id])
+  }, [id, user])
 
   useEffect(() => {
     if (order != null) {
@@ -330,12 +333,12 @@ const OrderDetails = () => {
 };
 
 const getOrder = async (id) => {
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-      // "Authorization": `Token ${token}`
+
+    const config = {
+        headers: {
+            "Content-Type": "application/json",
+        }
     }
-  }
 
   const order_url = `/digital-warehouse/order/${id}/`
 
@@ -365,14 +368,12 @@ const calculateTaxes = (items) => {
 
 
 const getClients = async () => {
-  // const token = window.localStorage.getItem("token")
 
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-      // "Authorization": `Token ${token}`
+    const config = {
+        headers: {
+            "Content-Type": "application/json",
+        }
     }
-  }
 
   const clients_url = "/digital-warehouse/clients"
 
@@ -393,12 +394,12 @@ const getClients = async () => {
 
 
 const deleteOrder = async (id, navigate) => {
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-      // "Authorization": `Token ${token}`
+
+    const config = {
+        headers: {
+            "Content-Type": "application/json",
+        }
     }
-  }
 
   const order_url = `/digital-warehouse/order/${id}/`
 
@@ -413,21 +414,18 @@ const deleteOrder = async (id, navigate) => {
 
 
 const onSave = async (id, body) => {
-  // const token = window.localStorage.getItem("token")
 
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-      // "Authorization": `Token ${token}`
+    const config = {
+        headers: {
+            "Content-Type": "application/json",
+        }
     }
-  }
 
   const order_url = `/digital-warehouse/order/${id}/`
 
 
   await axios.post(order_url, body, config).then(async (res) => {
   }).catch((error) => {
-    console.log(error)
   })
 }
 

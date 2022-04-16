@@ -1,0 +1,61 @@
+.login-div{
+    height: 100%;
+    min-height: 100vh;
+    margin: 0 !important;
+    background-image: url("../assets/images/Login_Background.jpg");
+    background-size: cover;
+}
+
+.login-div-wrapper{
+    height: 100%;
+    min-height: 100vh;
+    background-color: #26252599;
+}
+
+
+.login-spacer{
+    height: 150px;
+    width: 100%;
+}
+
+.login-card{
+    width: 90%;
+    max-width: 600px;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    border: 2px solid;
+    border-color: #f2c17d;
+    border-radius: 20px !important;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.login-card-header{
+    background-color: white;
+    border-bottom: 2px solid;
+    border-color: #f2c17d;
+    border-radius: 20px !important;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+.login-button-div{
+    margin-top: 50px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    text-align: center;
+}
+
+.login-button{
+    width: 200px;
+    font-size: 1.5rem;
+}
+
+.login-form-control{
+    height: 50px;
+}
+
+.login-form-label{
+    font-size: 1.2rem;
+    font-weight: bold;
+}

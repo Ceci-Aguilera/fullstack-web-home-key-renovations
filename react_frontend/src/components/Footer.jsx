@@ -8,13 +8,13 @@ import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 
 import {useContextMenu} from "../context/MenuContext";
-// import {useAuth} from "../context/AuthContext";
+import {useAuth} from "../context/AuthContext";
 
 function Footer() {
 
 const {current_link, setCurrentLinkHelper} = useContextMenu();
 
-    const user = null;
+const {user} = useAuth();
 
     useEffect(() => {
     // console.log(current_link);
@@ -22,7 +22,7 @@ const {current_link, setCurrentLinkHelper} = useContextMenu();
 
 
 
-  return (
+  return (user == null)?<div></div>:(
     <footer className="footer">
       <Container className="footer-div">
         <Row className="footer-nav-row">
@@ -48,7 +48,7 @@ const {current_link, setCurrentLinkHelper} = useContextMenu();
             </Link>
 
             {user?
-              <Link exact to="/#" as={NavLink}  className="footer-link">
+              <Link exact to="/logout" as={NavLink}  className="footer-link">
                 <span onClick={()=>setCurrentLinkHelper("Logout")} className={current_link=="Logout"?"secondary-color-span":""}>Logout</span>
               </Link>
             :""}

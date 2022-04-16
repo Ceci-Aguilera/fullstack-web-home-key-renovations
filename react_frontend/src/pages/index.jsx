@@ -8,12 +8,16 @@ import { Link } from "react-router-dom";
 import ListOfProducts from "../components/ListOfProfucts";
 
 import { useContextProducts } from "../context/ProductsContext";
+import { useAuth } from "../context/AuthContext";
 
 import axios from "axios";
+import Login from "../components/Login";
 
 export default function Landing() {
 
   const { products } = useContextProducts()
+
+  const { user } = useAuth()
 
   const [categories, setCategories] = useState([]);
   const [current_category, setCurrentCategory] = useState(-1)
@@ -25,29 +29,31 @@ export default function Landing() {
       setCategories(categories_temp.categories);
     }
 
-    fetchCategories();
-  }, [])
-
-
-    useEffect(() => {
-      setProductsToDisplay(products);
-    }, [products])
-
-    const onChangeCategory = (e, cat_id) => {
-        e.preventDefault();
-        setCurrentCategory(cat_id);
-        setProductsToDisplay(products.filter((element) => {
-            if(cat_id === -1){
-                return element;
-              }
-              else if(element.category === cat_id){
-                return element;
-              }
-        }));
+    if (user != null) {
+      fetchCategories();
     }
+  }, [user])
 
 
-  return (
+  useEffect(() => {
+    setProductsToDisplay(products);
+  }, [products])
+
+  const onChangeCategory = (e, cat_id) => {
+    e.preventDefault();
+    setCurrentCategory(cat_id);
+    setProductsToDisplay(products.filter((element) => {
+      if (cat_id === -1) {
+        return element;
+      }
+      else if (element.category === cat_id) {
+        return element;
+      }
+    }));
+  }
+
+
+  return (user == null) ? <Login /> : (
     <div className="landing-div">
 
       <Row className="landing-row">
@@ -65,7 +71,7 @@ export default function Landing() {
                   </p>
 
                   <p className="landing-categories-list-element-p">
-                   <span className="landing-categories-list-element-span">{productsToDisplay.length}</span> Products
+                    <span className="landing-categories-list-element-span">{productsToDisplay.length}</span> Products
                   </p>
                 </div> :
                 <div className="landing-categories-list-element-div" onClick={(e) => onChangeCategory(e, -1)}>
@@ -74,26 +80,27 @@ export default function Landing() {
                   </p>
                 </div>}
 
-            {(categories == null || categories.length === 0) ? <div></div> :
-              <>
-                {categories.map((cat, index) => {
-                  return (current_category == cat.id) ? <div className="landing-categories-list-element-div landing-categories-list-element-selected">
-                    <p className="landing-categories-list-element-p">
-                      {cat.title}
-                    </p>
-                    
-                    <p className="landing-categories-list-element-p">
-                    <span className="landing-categories-list-element-span">{productsToDisplay.length}</span> Products
-                  </p>
-                  </div> : <div className="landing-categories-list-element-div"  onClick={(e) => onChangeCategory(e, cat.id)}>
-                    <p className="landing-categories-list-element-p">
-                      {cat.title} 
-                    </p>
-                  </div>
-                })}
+              {(categories == null || categories.length === 0) ? <div></div> :
+                <>
+                  {categories.map((cat, index) => {
+                    return (current_category == cat.id) ?
+                      <div key={index} className="landing-categories-list-element-div landing-categories-list-element-selected">
+                        <p className="landing-categories-list-element-p">
+                          {cat.title}
+                        </p>
 
-              </>
-            }
+                        <p className="landing-categories-list-element-p">
+                          <span className="landing-categories-list-element-span">{productsToDisplay.length}</span> Products
+                        </p>
+                      </div> : <div className="landing-categories-list-element-div" onClick={(e) => onChangeCategory(e, cat.id)}>
+                        <p className="landing-categories-list-element-p">
+                          {cat.title}
+                        </p>
+                      </div>
+                  })}
+
+                </>
+              }
             </div>
 
 
@@ -114,16 +121,14 @@ export default function Landing() {
 }
 
 const getCategories = async () => {
-  // const token = window.localStorage.getItem("token")
 
   const config = {
     headers: {
       "Content-Type": "application/json",
-      // "Authorization": `Token ${token}`
     }
   }
 
-  const categories_url = "/digital-warehouse/categories"
+  const categories_url = "/digital-warehouse/categories/"
 
 
   return axios.get(categories_url, config).then(async (res) => {

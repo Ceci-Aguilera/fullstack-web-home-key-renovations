@@ -9,22 +9,20 @@ import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 
 import {useContextMenu} from "../context/MenuContext";
-// import {useAuth} from "../context/AuthContext";
+import {useAuth} from "../context/AuthContext";
 
 import logo from "../assets/logos/HKR_LOGO.png";
-
-const user = null;
 
 function CustomNavbar() {
 
   const {current_link, setCurrentLinkHelper} = useContextMenu();
-//   const {user, login, logout} = useAuth();
+  const {user, login, logout} = useAuth();
 
   useEffect(() => {
     // console.log(current_link);
   }, [current_link])
 
-  return (
+  return (user == null)?<div></div>:(
     <Navbar bg="dark" variant="dark" className="navbar" collapseOnSelect expand="lg">
       {/* <Container className="navbar-div"> */}
         <Navbar.Brand exact to="/"
@@ -41,6 +39,8 @@ function CustomNavbar() {
         </Navbar.Brand>
         <Navbar.Toggle  className="navbar-toggle" aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
+
+        (
           <Nav className="ms-auto navbar-nav">
 
             <Nav.Link
@@ -64,7 +64,7 @@ function CustomNavbar() {
             </Nav.Link>
 
             {user?
-              <Nav.Link exact to="/#" as={NavLink}  className="navbar-link">
+              <Nav.Link exact to="/logout" as={NavLink}  className="navbar-link">
                 <span onClick={()=>setCurrentLinkHelper("Logout")} className={current_link=="Logout"?"secondary-color-span":""}>Logout</span>
               </Nav.Link>
             :""}
@@ -73,6 +73,7 @@ function CustomNavbar() {
         </Navbar.Collapse>
       {/* </Container> */}
     </Navbar>
+        
   );
 }
 

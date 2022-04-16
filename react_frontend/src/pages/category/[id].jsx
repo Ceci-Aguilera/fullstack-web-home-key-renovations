@@ -13,12 +13,15 @@ import ProductDetailForm from "../../components/ProductDetailForm";
 import CategoryDetailForm from "../../components/EditCategoryForm";
 
 import { useNavigate } from 'react-router';
+import { useAuth } from "../../context/AuthContext";
 
 
 
 
 const CategoryDetails = () => {
 const {id} = useParams();
+
+const {user} = useAuth();
 
 
 const navigate = useNavigate();
@@ -32,22 +35,20 @@ useEffect(() => {
         setCategory(temp_category.category);
     }
 
-    if(id != null && id !== undefined){
+    if(user != null && id != null && id !== undefined){
         fetchCategory();
     }
 
-}, [id])
+}, [id, user])
 
 
 const editCategory = async(e, body) => {
-        // const token = window.localStorage.getItem("token")
-  
-    const config = {
+
+  const config = {
       headers: {
-        "Content-Type": "application/json",
-        // "Authorization": `Token ${token}`
+          "Content-Type": "application/json",
       }
-    }
+  }
   
     const category_url = `/digital-warehouse/category/${id}/`
   
@@ -55,19 +56,16 @@ const editCategory = async(e, body) => {
     await axios.put(category_url, body, config).then(async(res) => {
         navigate("/categories", {replace: true})
     }).catch((error) => {
-      console.log(error)
     } )
 }
 
 const deleteCategory = async(e) => {
-         // const token = window.localStorage.getItem("token")
-  
-         const config = {
-            headers: {
-              "Content-Type": "application/json",
-              // "Authorization": `Token ${token}`
-            }
-          }
+
+  const config = {
+      headers: {
+          "Content-Type": "application/json",
+      }
+  }
         
           const category_url = `/digital-warehouse/category/${id}/`
         
@@ -75,7 +73,6 @@ const deleteCategory = async(e) => {
           await axios.delete(category_url, config).then(async(res) => {
               navigate("/categories", {replace: true})
           }).catch((error) => {
-            console.log(error)
           } )
 }
 
@@ -87,12 +84,12 @@ const deleteCategory = async(e) => {
 };
 
 const getCategory = async (id) => {
-    const config = {
-        headers: {
+
+  const config = {
+      headers: {
           "Content-Type": "application/json",
-          // "Authorization": `Token ${token}`
-        }
       }
+  }
     
       const category_url = `/digital-warehouse/category/${id}/`
     

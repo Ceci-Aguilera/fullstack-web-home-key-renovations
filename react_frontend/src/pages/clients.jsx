@@ -6,11 +6,13 @@ import { useEffect, useState } from "react";
 import { Button, Row, Col, Form, InputGroup } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-
+import { useAuth } from "../context/AuthContext";
 
 import axios from "axios";
 
 export default function Clients() {
+
+    const {user} = useAuth();
 
 
     const [clients, setClients] = useState([]);
@@ -26,9 +28,11 @@ export default function Clients() {
             setClients(clients_temp.clients);
         }
 
-        fetchClients();
-        setClientsToDisplay(clients)
-    }, [])
+        if(user != null){
+            fetchClients();
+            setClientsToDisplay(clients)
+        }
+    }, [user])
 
     useEffect(() => {
         setClientsToDisplay(clients);
@@ -106,16 +110,14 @@ export default function Clients() {
 }
 
 const getClients = async () => {
-    // const token = window.localStorage.getItem("token")
 
     const config = {
         headers: {
             "Content-Type": "application/json",
-            // "Authorization": `Token ${token}`
         }
     }
 
-    const clients_url = "/digital-warehouse/clients"
+    const clients_url = "/digital-warehouse/clients/"
 
 
     return axios.get(clients_url, config).then(async (res) => {

@@ -6,12 +6,13 @@ import { useEffect, useState } from "react";
 import { Button, Row, Col, Form, InputGroup } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-
+import { useAuth } from "../context/AuthContext";
 
 import axios from "axios";
 
 export default function Orders() {
 
+    const {user} = useAuth();
 
     const [orders, setOrders] = useState([]);
 
@@ -21,8 +22,10 @@ export default function Orders() {
             setOrders(orders_temp.orders);
         }
 
-        fetchOrders();
-    }, [])
+        if(user != null){
+            fetchOrders();
+        }
+    }, [user])
 
 
     return (
@@ -73,12 +76,11 @@ export default function Orders() {
 }
 
 const getOrders = async () => {
-    // const token = window.localStorage.getItem("token")
+
 
     const config = {
         headers: {
             "Content-Type": "application/json",
-            // "Authorization": `Token ${token}`
         }
     }
 

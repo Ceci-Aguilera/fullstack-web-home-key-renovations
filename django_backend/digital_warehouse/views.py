@@ -7,6 +7,10 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.generics import *
 from rest_framework.views import APIView
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated, AllowAny
+
+from knox.models import AuthToken
 
 from .models import *
 from .serializers import *
@@ -15,7 +19,8 @@ from .serializers import *
 
 # This is the Product List View
 class ProductsListView(ListCreateAPIView):
-    authentication_classes = []
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (AllowAny,)
     serializer_class = ProductSerializer
     model = Product
     queryset = Product.objects.all()
@@ -25,7 +30,8 @@ class ProductsListView(ListCreateAPIView):
 
 # This is the Category List View
 class CategoriesListView(ListCreateAPIView):
-    authentication_classes = []
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (AllowAny,)
     serializer_class = CategorySerializer
     model = Category
     queryset = Category.objects.all()
@@ -33,7 +39,8 @@ class CategoriesListView(ListCreateAPIView):
 
 # This is the Client List View
 class ClientsListView(ListCreateAPIView):
-    authentication_classes = []
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (AllowAny,)
     serializer_class = ClientSerializer
     model = Client
     queryset = Client.objects.all()
@@ -41,7 +48,8 @@ class ClientsListView(ListCreateAPIView):
 
 #  This is the Product Detail View for simple CRUD operations
 class ProductDetailView(RetrieveUpdateDestroyAPIView):
-    authentication_classes = []
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (AllowAny,)
     serializer_class = ProductSerializer
     lookup_url_kwarg = 'product_id'
     queryset = Product.objects.all()
@@ -50,7 +58,8 @@ class ProductDetailView(RetrieveUpdateDestroyAPIView):
 
 #  This is the Category Detail View for simple CRUD operations
 class CategoryDetailView(RetrieveUpdateDestroyAPIView):
-    authentication_classes = []
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (AllowAny,)
     serializer_class = CategorySerializer
     lookup_url_kwarg = 'category_id'
     queryset = Category.objects.all()
@@ -59,7 +68,8 @@ class CategoryDetailView(RetrieveUpdateDestroyAPIView):
 
 #  This is the Client Detail View for simple CRUD operations
 class ClientDetailView(RetrieveUpdateDestroyAPIView):
-    authentication_classes = []
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (AllowAny,)
     serializer_class = ClientSerializer
     lookup_url_kwarg = 'client_id'
     queryset = Client.objects.all()
@@ -68,7 +78,8 @@ class ClientDetailView(RetrieveUpdateDestroyAPIView):
 #  This is the Order List and Create View
 class OrderListView(APIView):
 
-    authentication_classes = []
+    authentication_classes = (TokenAuthentication,) # you were missing a comma
+    permission_classes = (AllowAny,)
 
     def get(self, request):
         orders = Order.objects.all()
@@ -105,7 +116,8 @@ class OrderListView(APIView):
 
 #  This is the Order Detail View for simple CRUD operations
 class OrderDetailView(APIView):
-    authentication_classes = []
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (AllowAny,)
 
     def get(self, request, order_id):
 
@@ -153,3 +165,33 @@ class OrderDetailView(APIView):
         order = Order.objects.get(id=order_id)
         order.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class LoginView(APIView):
+
+    permission_classes = (AllowAny,)
+
+    def post(self, request):
+
+        data = request.data
+
+        user_serializer = LoginSerializer(data=data)
+        
+        if user_serializer.is_valid() == False:
+            return Response({'Result': "No user with that credentials"}, status=status.HTTP_400_BAD_REQUEST)
+        
+        user = user_serializer.validated_data
+        
+        result = AuthToken.objects.create(user)[1]
+        return Response({'Result': result}, status=status.HTTP_200_OK)
+        
+
+class CheckAuthenticatedView(RetrieveAPIView):
+
+    permission_classes = (AllowAny,)
+
+    serializer_class = UserSimpleSerializer
+
+    def get_object(self):
+        print(self.request.user)
+        return self.request.user

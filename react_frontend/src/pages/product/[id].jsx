@@ -11,11 +11,13 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import ProductDetailForm from "../../components/ProductDetailForm";
 
-
+import { useAuth } from "../../context/AuthContext";
 
 
 const ProductDetails = () => {
 const {id} = useParams();
+
+const {user} = useAuth();
 
 const { editProduct, deleteProduct } = useContextProducts()
 
@@ -27,7 +29,6 @@ useEffect(() => {
 
     async function fetchProduct(){
         const temp_product = await getProduct(id);
-        console.log(temp_product.product)
         setProduct(temp_product.product);
     }
 
@@ -36,12 +37,12 @@ useEffect(() => {
         setCategories(categories_temp.categories);
       }
 
-    if(id != null && id !== undefined){
+    if(user != null && id != null && id !== undefined){
         fetchProduct();
         fetchCategories();
     }
 
-}, [id])
+}, [id, user])
 
   return (product == null)? <div></div>:(
     <>
@@ -51,12 +52,12 @@ useEffect(() => {
 };
 
 const getProduct = async (id) => {
-    const config = {
-        headers: {
+
+  const config = {
+      headers: {
           "Content-Type": "application/json",
-          // "Authorization": `Token ${token}`
-        }
       }
+  }
     
       const product_url = `/digital-warehouse/product/${id}/`
     
@@ -75,14 +76,12 @@ const getProduct = async (id) => {
 
 
 const getCategories = async () => {
-    // const token = window.localStorage.getItem("token")
-  
-    const config = {
+
+  const config = {
       headers: {
-        "Content-Type": "application/json",
-        // "Authorization": `Token ${token}`
+          "Content-Type": "application/json",
       }
-    }
+  }
   
     const categories_url = "/digital-warehouse/categories"
   

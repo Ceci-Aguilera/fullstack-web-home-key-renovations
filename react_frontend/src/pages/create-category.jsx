@@ -14,21 +14,23 @@ import ProductCreateForm from "../components/ProductCreateForm";
 import { useNavigate } from 'react-router';
 import CategoryAddForm from "../components/CreateCategoryForm";
 
+import { useAuth } from "../context/AuthContext";
+
 
 const CreateCategory = () => {
+
+  const {user} = useAuth();
 
 
     const navigate = useNavigate();
 
     const addCategory = async (body) => {
-        // const token = window.localStorage.getItem("token")
-    
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-        // "Authorization": `Token ${token}`
+
+      const config = {
+          headers: {
+              "Content-Type": "application/json",
+          }
       }
-    }
     
     const category_url = `/digital-warehouse/categories/`
     
@@ -36,12 +38,11 @@ const CreateCategory = () => {
     await axios.post(category_url, body, config).then(async(res) => {
         navigate("/categories", {replace: true})
     }).catch((error) => {
-      console.log(error)
     } )
     }
 
 
-  return (
+  return (user == null)?<div></div>:(
     <>
       <CategoryAddForm onAdd={addCategory}/>
     </>

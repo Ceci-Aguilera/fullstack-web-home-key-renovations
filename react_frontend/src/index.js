@@ -21,6 +21,7 @@ import Landing from "./pages/index"
 
 import { MenuProvider } from "./context/MenuContext"
 import { ProductsProvider } from "./context/ProductsContext"
+import { AuthProvider } from "./context/AuthContext"
 import ProductDetails from './pages/product/[id]';
 import CreateProduct from './pages/create-product';
 import Categories from './pages/categories';
@@ -32,32 +33,36 @@ import CreateClient from "./pages/create-client"
 import Orders from './pages/orders';
 import CreateOrder from './pages/create-order';
 import OrderDetails from './pages/orders/[id]';
+import Logout from './pages/logout';
 
 
 
 const rootElement = document.getElementById("root");
 render(
   <Router>
-    <ProductsProvider>
-      <MenuProvider>
-        <Layout>
-          <Routes>
-            <Route exact path="/" element={<Landing />} />
-            <Route exact path="/products/:id" element={<ProductDetails />} />
-            <Route exact path="/create-product" element={<CreateProduct />} />
-            <Route exact path="/categories" element={<Categories />} />
-            <Route exact path="/category/:id" element={<CategoryDetails />} />
-            <Route exact path="/create-category" element={<CreateCategory />} />
-            <Route exact path="/clients" element={<Clients />} />
-            <Route exact path="/client/:id" element={<ClientDetails />} />
-            <Route exact path="/create-client" element={<CreateClient />} />
-            <Route exact path="/orders" element={<Orders />} />
-            <Route exact path="/create-order" element={<CreateOrder />} />
-            <Route exact path="/order/:id" element={<OrderDetails />} />
-          </Routes>
-        </Layout>
-      </MenuProvider>
-    </ProductsProvider>
+    <AuthProvider>
+      <ProductsProvider>
+        <MenuProvider>
+          <Layout>
+            <Routes>
+              <Route exact path="/" element={<Landing />} />
+              <Route exact path="/products/:id" element={<ProductDetails />} />
+              <Route exact path="/create-product" element={<CreateProduct />} />
+              <Route exact path="/categories" element={<Categories />} />
+              <Route exact path="/category/:id" element={<CategoryDetails />} />
+              <Route exact path="/create-category" element={<CreateCategory />} />
+              <Route exact path="/clients" element={<Clients />} />
+              <Route exact path="/client/:id" element={<ClientDetails />} />
+              <Route exact path="/create-client" element={<CreateClient />} />
+              <Route exact path="/orders" element={<Orders />} />
+              <Route exact path="/create-order" element={<CreateOrder />} />
+              <Route exact path="/order/:id" element={<OrderDetails />} />
+              <Route exact path="/logout" element={<Logout />} />
+            </Routes>
+          </Layout>
+        </MenuProvider>
+      </ProductsProvider>
+    </AuthProvider>
   </Router>,
   rootElement
 );

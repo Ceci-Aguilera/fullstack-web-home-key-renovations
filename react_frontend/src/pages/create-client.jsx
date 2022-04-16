@@ -14,20 +14,20 @@ import ProductCreateForm from "../components/ProductCreateForm";
 import { useNavigate } from 'react-router';
 import ClientAddForm from "../components/CreateClientForm";
 
+import { useAuth } from "../context/AuthContext";
 
 const CreateClient = () => {
 
+  const {user} = useAuth();
 
     const navigate = useNavigate();
 
     const addClient = async (body) => {
-        // const token = window.localStorage.getItem("token")
-    
+
     const config = {
-      headers: {
-        "Content-Type": "application/json",
-        // "Authorization": `Token ${token}`
-      }
+        headers: {
+            "Content-Type": "application/json",
+        }
     }
     
     const client_url = `/digital-warehouse/clients/`
@@ -36,12 +36,11 @@ const CreateClient = () => {
     await axios.post(client_url, body, config).then(async(res) => {
         navigate("/clients", {replace: true})
     }).catch((error) => {
-      console.log(error)
     } )
     }
 
 
-  return (
+  return (user == null)?<div></div>:(
     <>
       <ClientAddForm onAdd={addClient}/>
     </>

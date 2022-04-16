@@ -14,13 +14,15 @@ import ClientDetailForm from "../../components/EditClientForm";
 import { useNavigate } from 'react-router';
 
 
-
+import { useAuth } from "../../context/AuthContext";
 
 const ClientDetails = () => {
 const {id} = useParams();
 
 
 const navigate = useNavigate();
+
+const {user} = useAuth();
 
 const [client, setClient] = useState(null)
 
@@ -31,42 +33,37 @@ useEffect(() => {
         setClient(temp_client.client);
     }
 
-    if(id != null && id !== undefined){
+    if(user != null && id != null && id !== undefined){
         fetchClient();
     }
 
-}, [id])
+}, [id, user])
 
 
 const editClient = async(e, body) => {
-        // const token = window.localStorage.getItem("token")
-  
-    const config = {
+
+  const config = {
       headers: {
-        "Content-Type": "application/json",
-        // "Authorization": `Token ${token}`
+          "Content-Type": "application/json",
       }
-    }
-  
+  }
+
     const client_url = `/digital-warehouse/client/${id}/`
   
   
     await axios.put(client_url, body, config).then(async(res) => {
         navigate("/clients", {replace: true})
     }).catch((error) => {
-      console.log(error)
     } )
 }
 
 const deleteClient = async(e) => {
-         // const token = window.localStorage.getItem("token")
-  
-         const config = {
-            headers: {
-              "Content-Type": "application/json",
-              // "Authorization": `Token ${token}`
-            }
-          }
+
+  const config = {
+      headers: {
+          "Content-Type": "application/json",
+      }
+  }
         
           const client_url = `/digital-warehouse/client/${id}/`
         
@@ -74,11 +71,10 @@ const deleteClient = async(e) => {
           await axios.delete(client_url, config).then(async(res) => {
               navigate("/clients", {replace: true})
           }).catch((error) => {
-            console.log(error)
           } )
 }
 
-  return (client == null)? <div></div>:(
+  return (user == null || client == null)? <div></div>:(
     <>
       <ClientDetailForm client={client} onEdit={editClient} onDelete={deleteClient}/>
     </>
@@ -86,12 +82,12 @@ const deleteClient = async(e) => {
 };
 
 const getClient = async (id) => {
+
     const config = {
         headers: {
-          "Content-Type": "application/json",
-          // "Authorization": `Token ${token}`
+            "Content-Type": "application/json",
         }
-      }
+    }
     
       const client_url = `/digital-warehouse/client/${id}/`
     

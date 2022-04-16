@@ -6,11 +6,13 @@ import { useEffect, useState } from "react";
 import { Button, Row, Col, Form, InputGroup } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-
+import { useAuth } from "../context/AuthContext";
 
 import axios from "axios";
 
 export default function Categories() {
+
+    const {user} = useAuth();
 
 
     const [categories, setCategories] = useState([]);
@@ -21,8 +23,10 @@ export default function Categories() {
             setCategories(categories_temp.categories);
         }
 
-        fetchCategories();
-    }, [])
+        if(user != null){
+            fetchCategories();
+        }
+    }, [user])
 
 
     return (
@@ -69,12 +73,10 @@ export default function Categories() {
 }
 
 const getCategories = async () => {
-    // const token = window.localStorage.getItem("token")
 
     const config = {
         headers: {
             "Content-Type": "application/json",
-            // "Authorization": `Token ${token}`
         }
     }
 

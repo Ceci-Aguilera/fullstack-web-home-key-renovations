@@ -39,8 +39,6 @@ function CustomNavbar() {
         </Navbar.Brand>
         <Navbar.Toggle  className="navbar-toggle" aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
-
-        (
           <Nav className="ms-auto navbar-nav">
 
             <Nav.Link

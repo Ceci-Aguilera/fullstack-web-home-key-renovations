@@ -2,9 +2,11 @@
 
 # Fullstack Web Home Key Renovations
 
+![HKR Logo](./react_frontend/src/assets/logos/HKR_LOGO.png)
+
 ![Python version](https://img.shields.io/badge/Python-3.10.8-4c566a?logo=python&&longCache=true&logoColor=white&colorB=pink&style=flat-square&colorA=4c566a) ![Django version](https://img.shields.io/badge/Django-4.0.4-4c566a?logo=django&&longCache=truelogoColor=white&colorB=pink&style=flat-square&colorA=4c566a) ![Django-RestFramework version](https://img.shields.io/badge/Django_Rest_Framework-3.13.1-red.svg?longCache=true&style=flat-square&logo=django&logoColor=white&colorA=4c566a&colorB=pink) ![PostgreSQL version](https://img.shields.io/badge/PostgreSQL-12.8-red.svg?longCache=true&style=flat-square&logo=postgresql&logoColor=white&colorA=4c566a&colorB=pink) ![React version](https://img.shields.io/badge/React-18.0.0-red.svg?longCache=true&style=flat-square&logo=react&logoColor=white&colorA=4c566a&colorB=pink)
 
-![React Image](./.readme_assets/React.png) ![Django Image](./.readme_assets/Django.png) ![Nginx Image](./.readme_assets/Nginx.png) ![PostgreSQL Image](./.readme_assets/PostgreSQL.png) ![Docker Image](./.readme_assets/Docker.png)
+
 
 
 </div>
@@ -28,6 +30,12 @@ This repository is intended to be both a Digital Warehouse and an Administration
 <a name="tech_stack"></a>
 ## Tech Stack and Packages Installed
 
+<div align="center">
+
+![React Image](./.readme_assets/React.png) ![Django Image](./.readme_assets/Django.png) ![Nginx Image](./.readme_assets/Nginx.png) ![PostgreSQL Image](./.readme_assets/PostgreSQL.png) ![Docker Image](./.readme_assets/Docker.png)
+
+</div>
+
 - __Django:__ This is the backbone of the backend api, and has the following packages installed:
     - Django Rest Framework (For the Rest API)
     - Pillow (For managing images uploading)
@@ -35,12 +43,14 @@ This repository is intended to be both a Digital Warehouse and an Administration
     - Django-Environ (To Fetch the environment variables in the settings.py files)
     - Psycopg2-binary (To manage the PostgreSQL Database)
     - Gunicorn (To manage the running instance of the django web app)
+    - Django-Rest-Knox (To manage user authentication via Token)
 
     __Note:__ All this packages are specified in the _requirements.txt_ file inside the __django_backend__ folder. Links to their official documentation can be found at the [Useful Links](#useful_links) section.
 
 - __React:__ The frontend library in use. This was created via ``npx create-react-app``. The only extra packages that were installed (ignoring the ones that are automatically pre-installed) are:
     - Bootstrap and React-Bootstrap (For styling)
     - Axios (To make calls to the Django Backend)
+    - React-Router-Dom and Router-Dom (For managing routing)
 
     __Note:__ The bootstrap css link has been added to the index.js file that is inside the __react_frontend/src__ folder. The links to the official documentation of these packages is included in the [Useful Links](#useful_links) section.
 
@@ -61,6 +71,7 @@ This repository is intended to be both a Digital Warehouse and an Administration
     cp django_backend/django_backend/settings/example_env django_backend/django_backend/settings/.env
     ```
 1. (optional) Edit the values in the previous copied files to create a custom config. Note that the one set by default should work just fine for development.
+1. Add django backend url in an .env file inside __react_frontend__ as REACT_APP_BACKEND_API_URL
 1. Run Docker-Compose:
     ```bash
     docker-compose up -d --build
@@ -121,29 +132,7 @@ __Note:__ To now how to install and configure PostgreSQL, see the [Useful Links]
     npm install
     ```
 
-1. (optional) Add django backend url as proxy. To do so go to __react_frontend__ and edit the package.json, in the block before the "devDependencies" block add
-    ```json
-    "proxy": "http://localhost:5000/",
-    ```
-
-    Now, that section in the package.json should look like the following:
-    ```json
-            "development": [
-            "last 1 chrome version",
-            "last 1 firefox version",
-            "last 1 safari version"
-            ]
-        },
-        "proxy": "http://localhost:5000/",
-        "devDependencies": {
-            "@babel/node": "^7.16.8",
-            "@babel/plugin-transform-react-jsx": "^7.17.3",
-            "babel-cli": "^6.26.0",
-            "babel-preset-es2015": "^6.24.1",
-            "babel-preset-react": "^6.24.1",
-            "babel-register": "^6.26.0"
-        }
-    ```
+1. Add django backend url in an .env file inside __react_frontend__ as REACT_APP_BACKEND_API_URL
 
 1. Run React while inside the __react_frontend__ folder:
     ```bash
@@ -232,6 +221,7 @@ The following structure is used by the owner of this repository when working on 
 - [Django-Environ](https://pypi.org/project/django-environ-2/)
 - [Psycopg2-binary](https://pypi.org/project/psycopg2-binary/)
 - [Gunicorn](https://pypi.org/project/gunicorn/)
+- [Django-Rest-Knox](https://james1345.github.io/django-rest-knox/)
 
 ### React
 - [React Official Documentation](https://reactjs.org/)

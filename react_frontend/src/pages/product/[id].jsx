@@ -14,6 +14,8 @@ import ProductDetailForm from "../../components/ProductDetailForm";
 import { useAuth } from "../../context/AuthContext";
 
 
+const domain = process.env.REACT_APP_BACKEND_API_URL
+
 const ProductDetails = () => {
 const {id} = useParams();
 
@@ -59,7 +61,7 @@ const getProduct = async (id) => {
       }
   }
     
-      const product_url = `/digital-warehouse/product/${id}/`
+      const product_url = `${domain}/digital-warehouse/product/${id}/`
     
     
       return axios.get(product_url, config).then(async (res) => {
@@ -83,7 +85,7 @@ const getCategories = async () => {
       }
   }
   
-    const categories_url = "/digital-warehouse/categories"
+    const categories_url = `${domain}/digital-warehouse/categories`
   
   
     return axios.get(categories_url, config).then(async (res) => {

@@ -10,6 +10,8 @@ import { useAuth } from "../context/AuthContext";
 
 import axios from "axios";
 
+const domain = process.env.REACT_APP_BACKEND_API_URL
+
 export default function Orders() {
 
     const {user} = useAuth();
@@ -84,7 +86,7 @@ const getOrders = async () => {
         }
     }
 
-    const orders_url = "/digital-warehouse/orders"
+    const orders_url = `${domain}/digital-warehouse/orders`
 
 
     return axios.get(orders_url, config).then(async (res) => {

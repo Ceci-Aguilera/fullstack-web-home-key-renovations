@@ -19,6 +19,7 @@ import EditProductVariationModal from "../components/EditProductVariationModal";
 
 import { useAuth } from "../context/AuthContext";
 
+const domain = process.env.REACT_APP_BACKEND_API_URL
 
 const CreateOrder = () => {
 
@@ -298,7 +299,7 @@ const getClients = async () => {
         }
     }
 
-  const clients_url = "/digital-warehouse/clients"
+  const clients_url = `${domain}/digital-warehouse/clients`
 
 
   return axios.get(clients_url, config).then(async (res) => {
@@ -336,7 +337,7 @@ const onSave = async (body) => {
     }
   }
 
-  const order_url = `/digital-warehouse/orders/`
+  const order_url = `${domain}/digital-warehouse/orders/`
 
 
   await axios.post(order_url, body, config).then(async (res) => {

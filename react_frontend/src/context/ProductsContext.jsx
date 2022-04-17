@@ -6,6 +6,8 @@ import axios from "axios";
 
 import { useNavigate } from 'react-router';
 
+const domain = process.env.REACT_APP_BACKEND_API_URL
+
 const getProducts = async() => {
 
   const token = window.localStorage.getItem("user_token")
@@ -16,7 +18,7 @@ const getProducts = async() => {
       }
   }
 
-  const products_url = "/digital-warehouse/products/"
+  const products_url = `${domain}/digital-warehouse/products/`
 
 
   return await axios.get(products_url, config).then(async(res) => {
@@ -65,7 +67,7 @@ export const ProductsProvider = ({ children }) => {
         }
     }
 
-  const product_url = `/digital-warehouse/product/${id}/`
+  const product_url = `${domain}/digital-warehouse/product/${id}/`
 
 
   await axios.put(product_url, body, config).then(async(res) => {
@@ -86,7 +88,7 @@ export const ProductsProvider = ({ children }) => {
         }
     }
 
-const product_url = `/digital-warehouse/products/`
+const product_url = `${domain}/digital-warehouse/products/`
 
 
 await axios.post(product_url, body, config).then(async(res) => {
@@ -108,7 +110,7 @@ const deleteProduct = async (product_id) => {
         }
     }
 
-  const product_url = `/digital-warehouse/product/${product_id}/`
+  const product_url = `${domain}/digital-warehouse/product/${product_id}/`
 
 
   await axios.delete(product_url, config).then(async(res) => {

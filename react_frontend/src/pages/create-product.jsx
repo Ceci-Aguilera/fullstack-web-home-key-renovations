@@ -13,6 +13,7 @@ import ProductCreateForm from "../components/ProductCreateForm";
 
 import { useAuth } from "../context/AuthContext";
 
+const domain = process.env.REACT_APP_BACKEND_API_URL
 
 const CreateProduct = () => {
 
@@ -47,7 +48,7 @@ const getCategories = async () => {
       }
   }
   
-    const categories_url = "/digital-warehouse/categories"
+    const categories_url = `${domain}/digital-warehouse/categories`
   
   
     return axios.get(categories_url, config).then(async (res) => {

@@ -16,6 +16,9 @@ import { useNavigate } from 'react-router';
 
 import { useAuth } from "../../context/AuthContext";
 
+
+const domain = process.env.REACT_APP_BACKEND_API_URL
+
 const ClientDetails = () => {
 const {id} = useParams();
 
@@ -48,7 +51,7 @@ const editClient = async(e, body) => {
       }
   }
 
-    const client_url = `/digital-warehouse/client/${id}/`
+    const client_url = `${domain}/digital-warehouse/client/${id}/`
   
   
     await axios.put(client_url, body, config).then(async(res) => {
@@ -65,7 +68,7 @@ const deleteClient = async(e) => {
       }
   }
         
-          const client_url = `/digital-warehouse/client/${id}/`
+          const client_url = `${domain}/digital-warehouse/client/${id}/`
         
         
           await axios.delete(client_url, config).then(async(res) => {
@@ -89,7 +92,7 @@ const getClient = async (id) => {
         }
     }
     
-      const client_url = `/digital-warehouse/client/${id}/`
+      const client_url = `${domain}/digital-warehouse/client/${id}/`
     
     
       return axios.get(client_url, config).then(async (res) => {

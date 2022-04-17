@@ -10,6 +10,8 @@ import { useAuth } from "../context/AuthContext";
 
 import axios from "axios";
 
+const domain = process.env.REACT_APP_BACKEND_API_URL
+
 export default function Categories() {
 
     const {user} = useAuth();
@@ -80,7 +82,7 @@ const getCategories = async () => {
         }
     }
 
-    const categories_url = "/digital-warehouse/categories"
+    const categories_url = `${domain}/digital-warehouse/categories`
 
 
     return axios.get(categories_url, config).then(async (res) => {

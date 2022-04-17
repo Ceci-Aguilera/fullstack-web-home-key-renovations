@@ -13,6 +13,8 @@ import { useAuth } from "../context/AuthContext";
 import axios from "axios";
 import Login from "../components/Login";
 
+const domain = process.env.REACT_APP_BACKEND_API_URL
+
 export default function Landing() {
 
   const { products } = useContextProducts()
@@ -128,7 +130,7 @@ const getCategories = async () => {
     }
   }
 
-  const categories_url = "/digital-warehouse/categories/"
+  const categories_url = `${domain}/digital-warehouse/categories/`
 
 
   return axios.get(categories_url, config).then(async (res) => {

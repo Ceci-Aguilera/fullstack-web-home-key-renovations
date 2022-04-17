@@ -16,6 +16,8 @@ import ClientAddForm from "../components/CreateClientForm";
 
 import { useAuth } from "../context/AuthContext";
 
+const domain = process.env.REACT_APP_BACKEND_API_URL
+
 const CreateClient = () => {
 
   const {user} = useAuth();
@@ -30,7 +32,7 @@ const CreateClient = () => {
         }
     }
     
-    const client_url = `/digital-warehouse/clients/`
+    const client_url = `${domain}/digital-warehouse/clients/`
     
     
     await axios.post(client_url, body, config).then(async(res) => {

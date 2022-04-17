@@ -7,12 +7,14 @@ import { useNavigate } from "react-router-dom"
 const AuthContext = createContext();
 
 
+const domain = process.env.REACT_APP_BACKEND_API_URL
+
 
 export const getUser = async () => {
 
   const user_token = window.localStorage.getItem("user_token");
 
-  const auth_url =  `/digital-warehouse/check-auth/`;
+  const auth_url =  `${domain}/digital-warehouse/check-auth/`;
 
   if (user_token !== "undefined") {
 
@@ -86,7 +88,7 @@ if(token != null && token != undefined){
       },
     };
 
-    const login_url = `/digital-warehouse/login/`;
+    const login_url = `${domain}/digital-warehouse/login/`;
 
     return await axios
       .post(login_url, body, config)

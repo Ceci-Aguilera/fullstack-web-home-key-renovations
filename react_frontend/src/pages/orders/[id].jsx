@@ -23,6 +23,9 @@ import EditProductVariationModal from "../../components/EditProductVariationModa
 import { useAuth } from "../../context/AuthContext";
 
 
+
+const domain = process.env.REACT_APP_BACKEND_API_URL
+
 const OrderDetails = () => {
   const { id } = useParams();
 
@@ -340,7 +343,7 @@ const getOrder = async (id) => {
         }
     }
 
-  const order_url = `/digital-warehouse/order/${id}/`
+  const order_url = `${domain}/digital-warehouse/order/${id}/`
 
 
   return axios.get(order_url, config).then(async (res) => {
@@ -375,7 +378,7 @@ const getClients = async () => {
         }
     }
 
-  const clients_url = "/digital-warehouse/clients"
+  const clients_url = `${domain}/digital-warehouse/clients`
 
 
   return axios.get(clients_url, config).then(async (res) => {
@@ -401,7 +404,7 @@ const deleteOrder = async (id, navigate) => {
         }
     }
 
-  const order_url = `/digital-warehouse/order/${id}/`
+  const order_url = `${domain}/digital-warehouse/order/${id}/`
 
 
   axios.delete(order_url, config).then(async (res) => {
@@ -421,7 +424,7 @@ const onSave = async (id, body) => {
         }
     }
 
-  const order_url = `/digital-warehouse/order/${id}/`
+  const order_url = `${domain}/digital-warehouse/order/${id}/`
 
 
   await axios.post(order_url, body, config).then(async (res) => {

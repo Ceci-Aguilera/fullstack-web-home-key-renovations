@@ -10,6 +10,8 @@ import { useAuth } from "../context/AuthContext";
 
 import axios from "axios";
 
+const domain = process.env.REACT_APP_BACKEND_API_URL
+
 export default function Clients() {
 
     const {user} = useAuth();
@@ -117,7 +119,7 @@ const getClients = async () => {
         }
     }
 
-    const clients_url = "/digital-warehouse/clients/"
+    const clients_url = `${domain}/digital-warehouse/clients/`
 
 
     return axios.get(clients_url, config).then(async (res) => {

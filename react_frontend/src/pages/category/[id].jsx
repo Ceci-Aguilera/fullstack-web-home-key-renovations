@@ -16,7 +16,7 @@ import { useNavigate } from 'react-router';
 import { useAuth } from "../../context/AuthContext";
 
 
-
+const domain = process.env.REACT_APP_BACKEND_API_URL
 
 const CategoryDetails = () => {
 const {id} = useParams();
@@ -50,7 +50,7 @@ const editCategory = async(e, body) => {
       }
   }
   
-    const category_url = `/digital-warehouse/category/${id}/`
+    const category_url = `${domain}/digital-warehouse/category/${id}/`
   
   
     await axios.put(category_url, body, config).then(async(res) => {
@@ -67,7 +67,7 @@ const deleteCategory = async(e) => {
       }
   }
         
-          const category_url = `/digital-warehouse/category/${id}/`
+          const category_url = `${domain}/digital-warehouse/category/${id}/`
         
         
           await axios.delete(category_url, config).then(async(res) => {
@@ -91,7 +91,7 @@ const getCategory = async (id) => {
       }
   }
     
-      const category_url = `/digital-warehouse/category/${id}/`
+      const category_url = `${domain}/digital-warehouse/category/${id}/`
     
     
       return axios.get(category_url, config).then(async (res) => {

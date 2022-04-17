@@ -20,6 +20,7 @@
 1. [Django Files and Folders of Interest](#django)
 1. [React Files and Folders of Interest](#react)
 1. [About Nginx Configuration](#nginx)
+1. [Screenshots of the Frontend](#screenshots)
 1. [Useful Links](#useful_links)
 
 <a name="description"></a>
@@ -188,6 +189,30 @@ The following structure is used by the owner of this repository when working on 
           |____ styles
           |____ assets
 ```
+
+
+
+<a name="screenshots"></a>
+## Screenshots of the Frontend
+
+<div align="center">
+
+![Clients Mobile](./.readme_assets/Clients_Mobile.png)  ![New Client Mobile](./.readme_assets/New_Client_Mobile.png) ![Order Mobile](./.readme_assets/Order_Mobile.png)
+
+</div>
+
+<div align="center">
+
+![Landing Desktop](./.readme_assets/Landing.png)
+
+![New Order Desktop](./.readme_assets/New_Order.png)
+
+![Edit Order Desktop](./.readme_assets/Edit_Order.png)
+
+</div>
+
+
+
 
 ---
 

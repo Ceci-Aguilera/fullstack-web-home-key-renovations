@@ -9,7 +9,7 @@
     text-align: center;
 }
 
-.clients-list{
+.order-list{
     width: 90%;
     max-width: 1000px;
     margin-top: 25px;
@@ -17,7 +17,7 @@
     margin-right: auto !important;
 }
 
-.clients-list-element{
+.order-list-element{
     width: 1000px;
     height: 50px;
     border-radius: 10px;
@@ -28,7 +28,7 @@
     flex-direction: row;
 }
 
-.clients-list-element-div{
+.order-list-element-div{
     width: 800px;
     height: 50px;
     border: 2px solid #f2c17d;
@@ -52,7 +52,7 @@
     line-height: 35px;
 }
 
-.clients-add-div{
+.order-add-div{
     width: 90%;
     max-width: 800px;
     margin-top: 25px;

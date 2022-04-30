@@ -43,7 +43,7 @@ export default function Orders() {
 
             {orders == null ? <div></div> :
 
-                <div className="clients-list">
+                <div className="order-list">
                     {orders.sort(function (a, b) {
                         if (a.id > b.id) {
                             return 1;
@@ -53,8 +53,8 @@ export default function Orders() {
                         return 0;
                     }).map((order, index) => {
                         return (
-                            <InputGroup key={index} className="mb-3 clients-list-element">
-                                <div className="clients-list-element-div">
+                            <InputGroup key={index} className="mb-3 order-list-element">
+                                <div className="order-list-element-div">
                                     <p className="clients-list-element-p">
                                         <span className="clients-span">{order.id}</span> <span className="order-span">{order.client.email}</span>  
                                         <span className="order-span">{order.client.phone}</span> 

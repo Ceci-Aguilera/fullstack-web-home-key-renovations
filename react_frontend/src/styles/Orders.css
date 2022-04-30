@@ -52,6 +52,15 @@
     line-height: 35px;
 }
 
+.order-list-element-button{
+    height: 50px;
+    width: 100px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    align-items:baseline;
+    line-height: 35px;
+}
+
 .order-add-div{
     width: 90%;
     max-width: 800px;
@@ -81,6 +90,9 @@
     background-color: #f2c17d;
     color:#444438 !important;
 }
+
+
+
 
 
 

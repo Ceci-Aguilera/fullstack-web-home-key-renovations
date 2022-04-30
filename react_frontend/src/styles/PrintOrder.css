@@ -1,0 +1,31 @@
+.print-order-div{
+    width: 100%;
+    height: 100vh;
+}
+
+.order-to-print-div{
+    width: 80%;
+    margin-top: 50px;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+.order-to-print-client-p-span{
+    font-weight: bold;
+}
+
+.order-to-print-mat-title{
+    margin-top: 50px;
+}
+
+.print-order-button-div{
+    width: 100%;
+    margin-top: 50px;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    text-align: center;
+}
+
+.print-order-button{
+    width: 200px;
+}

@@ -34,6 +34,7 @@ import Orders from './pages/orders';
 import CreateOrder from './pages/create-order';
 import OrderDetails from './pages/orders/[id]';
 import Logout from './pages/logout';
+import PrintOrder from './pages/print/[id]';
 
 
 
@@ -57,6 +58,7 @@ render(
               <Route exact path="/orders" element={<Orders />} />
               <Route exact path="/create-order" element={<CreateOrder />} />
               <Route exact path="/order/:id" element={<OrderDetails />} />
+              <Route exact path="/print/:id" element={<PrintOrder />} />
               <Route exact path="/logout" element={<Logout />} />
             </Routes>
           </Layout>

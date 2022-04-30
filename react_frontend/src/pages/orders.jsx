@@ -66,6 +66,9 @@ export default function Orders() {
                                 <Button href={`/order/${order.id}`} variant="secondary" className="clients-list-element-button">
                                     Edit
                                 </Button>
+                                <Button href={`/print/${order.id}`} variant="warning" className="order-list-element-button">
+                                    Print
+                                </Button>
                             </InputGroup>
                         );
                     })}

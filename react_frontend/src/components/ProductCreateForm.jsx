@@ -18,9 +18,6 @@ function ProductAddForm({categories, onAdd }) {
     const navigate = useNavigate();
 
     const [title, setTitle] = useState("");
-    const [pricing, setPricing] = useState("");
-    const [height, setHeight] = useState("");
-    const [width, setWidth] = useState("");
     const [comments, setComments] = useState("");
     const [product_category, setProductCategory] = useState(1);
 
@@ -38,10 +35,7 @@ function ProductAddForm({categories, onAdd }) {
 
         const body = JSON.stringify({
             title,
-            pricing,
             description: "No Description",
-            height,
-            width,
             comments,
             category: product_category,
         })
@@ -76,35 +70,9 @@ function ProductAddForm({categories, onAdd }) {
                             </Form.Select>
                         </Form.Group>
 
-
-
                         <Form.Group className="mb-3">
-                            <Form.Label className="product-detail-form-card-body-form-label">Pricing $$$</Form.Label>
-                            <Form.Control type="number" step="0.01" placeholder="Pricing of Product"
-                                value={pricing}
-                                onChange={(e) => setPricing(e.target.value)}
-                            />
-                        </Form.Group>
-
-                        <Form.Group className="mb-3">
-                            <Form.Label className="product-detail-form-card-body-form-label">Height (Inches)</Form.Label>
-                            <Form.Control type="number" step="0.01" placeholder="Height of Product"
-                                value={height}
-                                onChange={(e) => setHeight(e.target.value)}
-                            />
-                        </Form.Group>
-
-                        <Form.Group className="mb-3">
-                            <Form.Label className="product-detail-form-card-body-form-label">Width (Inches)</Form.Label>
-                            <Form.Control type="number" step="0.01" placeholder="Width of Product"
-                                value={width}
-                                onChange={(e) => setWidth(e.target.value)}
-                            />
-                        </Form.Group>
-
-                        <Form.Group className="mb-3">
-                            <Form.Label className="product-detail-form-card-body-form-label">Comments</Form.Label>
-                            <Form.Control as="textarea" rows={6} placeholder="Comments of Product"
+                            <Form.Label className="product-detail-form-card-body-form-label">Description</Form.Label>
+                            <Form.Control as="textarea" rows={6} placeholder="Description of Product"
                                 value={comments}
                                 onChange={(e) => setComments(e.target.value)}
                             />

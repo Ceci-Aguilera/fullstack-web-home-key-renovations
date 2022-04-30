@@ -78,7 +78,7 @@ class ClientDetailView(RetrieveUpdateDestroyAPIView):
 #  This is the Order List and Create View
 class OrderListView(APIView):
 
-    authentication_classes = (TokenAuthentication,) # you were missing a comma
+    authentication_classes = (TokenAuthentication,)
     permission_classes = (AllowAny,)
 
     def get(self, request):
@@ -102,13 +102,14 @@ class OrderListView(APIView):
         order.save()
 
         for prod_var in data['product_variations']:
-            product_variation = ProductVariation(product_id=prod_var['id'], amount=prod_var['amount'], pricing=prod_var['amount'] * prod_var['base_pricing'], order=order)
-            order.pricing_materials += (prod_var['amount'] * prod_var['base_pricing'])
-            product_variation.save()   
+            product_variation = ProductVariation(product_id=prod_var['id'], amount=prod_var['amount'], pricing=float(prod_var['amount']) * float(prod_var['base_pricing']), base_pricing=float(prod_var['base_pricing']), order=order)
+            product_variation.save() 
+            order.pricing_materials += (float(prod_var['amount']) * float(prod_var['base_pricing']))
+              
 
         order.save()
         
-        order.total_cost = (order.pricing_materials + order.bill_for_service) + (order.pricing_materials + order.bill_for_service) * 0.07
+        order.total_cost = (order.pricing_materials + order.bill_for_service) + (order.pricing_materials  * 0.07)
         order.save()
 
         return Response({"Result": "Success"}, status=status.HTTP_200_OK)
@@ -150,13 +151,13 @@ class OrderDetailView(APIView):
         ProductVariation.objects.all().filter(order=order).delete()
 
         for prod_var in data['product_variations']:
-            product_variation = ProductVariation(product_id=prod_var['product']['id'], amount=prod_var['amount'], pricing=prod_var['amount'] * prod_var['product']['pricing'], order=order)
-            order.pricing_materials += (prod_var['amount'] * prod_var['product']['pricing'])
+            product_variation = ProductVariation(product_id=prod_var['product']['id'], amount=prod_var['amount'], pricing=float(prod_var['amount']) * float(prod_var['base_pricing']), base_pricing=float(prod_var['base_pricing']), order=order)
+            order.pricing_materials += (float(prod_var['amount']) * float(prod_var['base_pricing']))
             product_variation.save()   
 
         order.save()
         
-        order.total_cost = (order.pricing_materials + order.bill_for_service) + (order.pricing_materials + order.bill_for_service) * 0.07
+        order.total_cost = order.pricing_materials + (order.pricing_materials * 0.07)  + order.bill_for_service
         order.save()
 
         return Response({"Result": "Success"}, status=status.HTTP_200_OK)

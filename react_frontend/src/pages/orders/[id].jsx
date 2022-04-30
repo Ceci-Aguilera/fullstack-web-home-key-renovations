@@ -29,7 +29,7 @@ const domain = process.env.REACT_APP_BACKEND_API_URL
 const OrderDetails = () => {
   const { id } = useParams();
 
-  const {user} = useAuth();
+  const { user } = useAuth();
 
 
   const navigate = useNavigate();
@@ -166,8 +166,8 @@ const OrderDetails = () => {
 
 
 
-  const addProductVariation = (item, amount) => {
-    setProductVariations([...new_product_variations, { product: { id: item.id, title: item.title, pricing: item.pricing }, amount: amount }]);
+  const addProductVariation = (item, amount, base_pricing) => {
+    setProductVariations([...new_product_variations, { product: { id: item.id, title: item.title}, amount: amount,  base_pricing: base_pricing  }]);
   }
 
 
@@ -176,8 +176,9 @@ const OrderDetails = () => {
     setProductVariations(new_product_variations.filter((_, i) => i !== index));
   }
 
-  const editProductVariation = (index, amount) => {
+  const editProductVariation = (index, amount, base_pricing) => {
     new_product_variations[index].amount = amount;
+    new_product_variations[index].base_pricing = base_pricing;
     setProductVariations([...new_product_variations]);
   }
 
@@ -232,34 +233,30 @@ const OrderDetails = () => {
                   <Form.Control as="textarea" rows={6} placeholder="Description" value={description} onChange={(e) => setDescription(e.target.value)} />
                 </Form.Group>
 
-                <Form.Group className="mb-3">
-                  <Form.Label className="product-detail-form-card-body-form-label">Scale</Form.Label>
-                  <Form.Select aria-label="Default select example" value={scale} onChange={(e) => setScale(e.target.value)}>
-                    <option value="Low">Low</option>
-                    <option value="Medium">Medium</option>
-                    <option value="High">High</option>
-                  </Form.Select>
-                </Form.Group>
-
-                <Form.Group className="mb-3">
-                  <Form.Label className="product-detail-form-card-body-form-label">Bill of Installation Service</Form.Label>
-                  <Form.Control type="number" steps="0.01" placeholder="0.0" value={bill_for_service} onChange={(e) => setBillForService(e.target.value)} />
-                </Form.Group>
-
                 <Row className="create-order-start-date-row">
+
                   <Col xs={6} sm={6} md={6} lg={6} className="create-order-col">
-                  <Form.Group className="mb-3">
-                  <Form.Label className="product-detail-form-card-body-form-label">Start Date</Form.Label>
-                  <Form.Control type="date"  value={start_date} onChange={(e) => setStart_date(e.target.value)} />
-                </Form.Group>
+
+                    <Form.Group className="mb-3">
+                      <Form.Label className="product-detail-form-card-body-form-label">Scale</Form.Label>
+                      <Form.Select aria-label="Default select example" value={scale} onChange={(e) => setScale(e.target.value)}>
+                        <option value="Low">Low</option>
+                        <option value="Medium">Medium</option>
+                        <option value="High">High</option>
+                      </Form.Select>
+                    </Form.Group>
+
                   </Col>
 
                   <Col xs={6} sm={6} md={6} lg={6} className="create-order-col">
-                  <Form.Group className="mb-3">
-                  <Form.Label className="product-detail-form-card-body-form-label">End Date</Form.Label>
-                  <Form.Control type="date"  value={end_date} onChange={(e) => setEnd_date(e.target.value)} />
-                </Form.Group>
+
+                    <Form.Group className="mb-3">
+                      <Form.Label className="product-detail-form-card-body-form-label">Bill of Installation Service</Form.Label>
+                      <Form.Control type="number" steps="0.01" placeholder="0.0" value={bill_for_service} onChange={(e) => setBillForService(e.target.value)} />
+                    </Form.Group>
+
                   </Col>
+
                 </Row>
 
                 <div key={`default-checkbox}`} className="mb-3" onChange={(e) => setConfirmed(e.target.checked)}>
@@ -272,6 +269,26 @@ const OrderDetails = () => {
                   />
                 </div>
 
+
+
+                <Row className="create-order-start-date-row">
+                  <Col xs={6} sm={6} md={6} lg={6} className="create-order-col">
+                    <Form.Group className="mb-3">
+                      <Form.Label className="product-detail-form-card-body-form-label">Start Date</Form.Label>
+                      <Form.Control type="date" value={start_date} onChange={(e) => setStart_date(e.target.value)} />
+                    </Form.Group>
+                  </Col>
+
+                  <Col xs={6} sm={6} md={6} lg={6} className="create-order-col">
+                    <Form.Group className="mb-3">
+                      <Form.Label className="product-detail-form-card-body-form-label">End Date</Form.Label>
+                      <Form.Control type="date" value={end_date} onChange={(e) => setEnd_date(e.target.value)} />
+                    </Form.Group>
+                  </Col>
+                </Row>
+
+
+
                 <div>
                   <p className="product-detail-form-card-body-form-label">Products</p>
                   {new_product_variations.map((product_var, index) => {
@@ -282,7 +299,7 @@ const OrderDetails = () => {
                         </p>
 
                         <p className="create-order-product-var-p">
-                          ${parseFloat(product_var.amount * product_var.product.pricing).toFixed(2)}
+                          ${parseFloat(product_var.amount * product_var.base_pricing).toFixed(2)}
                         </p>
 
                         <Button variant="warning" className="create-order-product-var-delete-button" onClick={(e) => onEditItem(e, index)}>
@@ -303,7 +320,7 @@ const OrderDetails = () => {
                   Total Amount: ${
                     parseFloat(
                       parseFloat(calculateTaxes(new_product_variations)) + parseFloat(bill_for_service)
-                      + parseFloat((parseFloat(calculateTaxes(new_product_variations)) + parseFloat(bill_for_service)) * 0.07)
+                      + parseFloat(parseFloat(calculateTaxes(new_product_variations)) * 0.07)
                     ).toFixed(2)}
                 </p>
 
@@ -337,11 +354,11 @@ const OrderDetails = () => {
 
 const getOrder = async (id) => {
 
-    const config = {
-        headers: {
-            "Content-Type": "application/json",
-        }
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
     }
+  }
 
   const order_url = `${domain}/digital-warehouse/order/${id}/`
 
@@ -363,7 +380,7 @@ const getOrder = async (id) => {
 const calculateTaxes = (items) => {
   var total_taxes = 0;
   for (let i = 0; i < items.length; i++) {
-    total_taxes += (items[i].amount * items[i].product.pricing)
+    total_taxes += (items[i].amount * items[i].base_pricing)
   }
   return total_taxes;
 }
@@ -372,11 +389,11 @@ const calculateTaxes = (items) => {
 
 const getClients = async () => {
 
-    const config = {
-        headers: {
-            "Content-Type": "application/json",
-        }
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
     }
+  }
 
   const clients_url = `${domain}/digital-warehouse/clients`
 
@@ -398,11 +415,11 @@ const getClients = async () => {
 
 const deleteOrder = async (id, navigate) => {
 
-    const config = {
-        headers: {
-            "Content-Type": "application/json",
-        }
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
     }
+  }
 
   const order_url = `${domain}/digital-warehouse/order/${id}/`
 
@@ -418,11 +435,11 @@ const deleteOrder = async (id, navigate) => {
 
 const onSave = async (id, body) => {
 
-    const config = {
-        headers: {
-            "Content-Type": "application/json",
-        }
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
     }
+  }
 
   const order_url = `${domain}/digital-warehouse/order/${id}/`
 

@@ -17,10 +17,6 @@ class Product(models.Model):
 
     title = models.CharField(max_length=50, blank=False)
     description = models.TextField(blank=True)
-    pricing = models.FloatField(default=0.0)
-
-    height = models.FloatField(default=0.0)
-    width = models.FloatField(default=0.0)
 
     comments = models.TextField(blank=True)
 
@@ -73,6 +69,7 @@ class ProductVariation(models.Model):
 
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     amount = models.IntegerField(default=1)
+    base_pricing = models.FloatField(default=0.0)
     pricing = models.FloatField(default=0.0)
 
     order = models.ForeignKey(Order, null=True, on_delete=models.CASCADE)

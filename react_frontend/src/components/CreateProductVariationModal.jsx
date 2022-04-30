@@ -13,10 +13,11 @@ import { useContextMenu } from "../context/MenuContext";
 function CreateProductVariationModal({ show, handleClose, item, addProductVariation }) {
 
     const [amount, setAmount] = useState(1);
+    const [base_price, setBasePrice] = useState(0);
 
     const addProductVariationHandler = (e) => {
         e.preventDefault();
-        addProductVariation(item, amount);
+        addProductVariation(item, amount, base_price);
     }
 
     return (item == null) ? <div></div> : (
@@ -28,6 +29,11 @@ function CreateProductVariationModal({ show, handleClose, item, addProductVariat
                 <Form.Group className="mb-3">
                     <Form.Label>Amount</Form.Label>
                     <Form.Control type="number" placeholder="1" value={amount} onChange={(e) => setAmount(e.target.value)} />
+                </Form.Group>
+
+                <Form.Group className="mb-3">
+                    <Form.Label>Pricing</Form.Label>
+                    <Form.Control type="number" steps="0.01" placeholder="0" value={base_price} onChange={(e) => setBasePrice(e.target.value)} />
                 </Form.Group>
             </Modal.Body>
             <Modal.Footer>

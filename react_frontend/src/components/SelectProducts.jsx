@@ -66,7 +66,7 @@ function SelectProducts({ products, onAddItem }) {
                                 <InputGroup key={index} className="mb-3 landing-products-list-element-input-group">
                                     <div className="landing-products-list-element-div">
                                         <p className="landing-products-list-element-p">
-                                            {product.title} {product.height}'' x {product.width}'' cost ${product.pricing}
+                                            {product.title} {product.comments}
                                         </p>
                                     </div>
                                     <Button variant="secondary" className="landing-products-list-element-button" onClick={(e) => onAddItemHandler(e, product)}>

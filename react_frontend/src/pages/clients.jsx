@@ -94,7 +94,7 @@ export default function Clients() {
                             <InputGroup key={index} className="mb-3 clients-list-element">
                                 <div className="clients-list-element-div">
                                     <p className="clients-list-element-p">
-                                        <span className="clients-span">{client.first_name} {client.last_name}</span> {client.email} <span className="clients-span-space">{client.phone}</span>
+                                        <span className="clients-span"></span> {client.email} <span className="clients-span-space">{client.phone}</span>
                                     </p>
                                 </div>
                                 <Button href={`/client/${client.id}`} variant="secondary" className="clients-list-element-button">

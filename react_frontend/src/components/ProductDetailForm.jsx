@@ -18,17 +18,11 @@ function ProductDetailForm({ product, categories, onEdit, onDelete }) {
     const navigate = useNavigate();
 
     const [title, setTitle] = useState("");
-    const [pricing, setPricing] = useState("");
-    const [height, setHeight] = useState("");
-    const [width, setWidth] = useState("");
     const [comments, setComments] = useState("");
     const [product_category, setProductCategory] = useState("");
 
     useEffect(() => {
         setTitle(product.title)
-        setPricing(product.pricing);
-        setHeight(product.height);
-        setWidth(product.width);
         setComments(product.comments)
         setProductCategory(product.category);
     }, [product])
@@ -53,10 +47,7 @@ function ProductDetailForm({ product, categories, onEdit, onDelete }) {
         const body = JSON.stringify({
             id: product.id,
             title,
-            pricing,
             description: product.description,
-            height,
-            width,
             comments,
             category: product_category,
         })
@@ -89,32 +80,6 @@ function ProductDetailForm({ product, categories, onEdit, onDelete }) {
                                     return (<option key={index} value={cat.id}>{cat.title}</option>);
                                 })}
                             </Form.Select>
-                        </Form.Group>
-
-
-
-                        <Form.Group className="mb-3">
-                            <Form.Label className="product-detail-form-card-body-form-label">Pricing $$$</Form.Label>
-                            <Form.Control type="number" step="0.01" placeholder="Pricing of Product"
-                                value={pricing}
-                                onChange={(e) => setPricing(e.target.value)}
-                            />
-                        </Form.Group>
-
-                        <Form.Group className="mb-3">
-                            <Form.Label className="product-detail-form-card-body-form-label">Height (Inches)</Form.Label>
-                            <Form.Control type="number" step="0.01" placeholder="Height of Product"
-                                value={height}
-                                onChange={(e) => setHeight(e.target.value)}
-                            />
-                        </Form.Group>
-
-                        <Form.Group className="mb-3">
-                            <Form.Label className="product-detail-form-card-body-form-label">Width (Inches)</Form.Label>
-                            <Form.Control type="number" step="0.01" placeholder="Width of Product"
-                                value={width}
-                                onChange={(e) => setWidth(e.target.value)}
-                            />
                         </Form.Group>
 
                         <Form.Group className="mb-3">

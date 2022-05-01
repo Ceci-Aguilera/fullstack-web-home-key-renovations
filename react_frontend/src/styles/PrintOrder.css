@@ -29,3 +29,12 @@
 .print-order-button{
     width: 200px;
 }
+
+.order-to-print-title-h2{
+    margin-top: 50px;
+}
+
+.order-to-print-title-h1{
+    font-weight: bold;
+    color: #b05f29
+};

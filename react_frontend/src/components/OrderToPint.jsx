@@ -17,9 +17,18 @@ class OrderToPrint extends React.Component {
 
         return (
             <div className="order-to-print-div">
-                <h1 className="order-to-print-title">
-                    ORDER
+
+                <h1 className="order-to-print-title order-to-print-title-h1">
+                    Home Key Renovation
                 </h1>
+
+                <p className="order-to-print-client-p">
+                <span className="order-to-print-client-p-span">Phone:</span>  941-580-0738
+                </p>
+
+                <h2 className="order-to-print-title order-to-print-title-h2">
+                    ORDER #{this.props.order.id}
+                </h2>
 
                 <p className="order-to-print-client-p">
 
@@ -28,7 +37,7 @@ class OrderToPrint extends React.Component {
                 </p>
 
                 <h2 className="order-to-print-mat-title">
-                    Materials & Cost
+                    Materials & Cost Estimate
                 </h2>
 
                 <ul>
@@ -92,8 +101,8 @@ class OrderToPrint extends React.Component {
                             </Col>
 
                             <Col xs={1} sm={1} md={1} lg={1}>
-                                <span className="order-to-print-client-p-span"> 
-                                ${parseFloat(this.props.order.bill_for_service + calculateTaxes(this.props.product_variations)).toFixed(2)}
+                                <span className="order-to-print-client-p-span">
+                                    ${parseFloat(this.props.order.bill_for_service + calculateTaxes(this.props.product_variations)).toFixed(2)}
                                 </span>
                             </Col>
                         </Row>
